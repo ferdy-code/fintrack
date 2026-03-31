@@ -21,16 +21,21 @@ WalletModel _$WalletModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$WalletModel {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(readValue: _readNested)
+  String get currencyCode => throw _privateConstructorUsedError;
+  @JsonKey(readValue: _readNested)
+  String get currencySymbol => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
   double get balance => throw _privateConstructorUsedError;
-  String? get currency => throw _privateConstructorUsedError;
   String? get icon => throw _privateConstructorUsedError;
   String? get color => throw _privateConstructorUsedError;
-  bool? get isDefault => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_active')
+  bool get isActive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this WalletModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,16 +55,16 @@ abstract class $WalletModelCopyWith<$Res> {
   ) = _$WalletModelCopyWithImpl<$Res, WalletModel>;
   @useResult
   $Res call({
-    String id,
+    int id,
     String name,
     String type,
-    double balance,
-    String? currency,
+    @JsonKey(readValue: _readNested) String currencyCode,
+    @JsonKey(readValue: _readNested) String currencySymbol,
+    @JsonKey(fromJson: _stringToDouble) double balance,
     String? icon,
     String? color,
-    bool? isDefault,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @JsonKey(name: 'is_active') bool isActive,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -81,20 +86,20 @@ class _$WalletModelCopyWithImpl<$Res, $Val extends WalletModel>
     Object? id = null,
     Object? name = null,
     Object? type = null,
+    Object? currencyCode = null,
+    Object? currencySymbol = null,
     Object? balance = null,
-    Object? currency = freezed,
     Object? icon = freezed,
     Object? color = freezed,
-    Object? isDefault = freezed,
+    Object? isActive = null,
     Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(
       _value.copyWith(
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as int,
             name: null == name
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
@@ -103,14 +108,18 @@ class _$WalletModelCopyWithImpl<$Res, $Val extends WalletModel>
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
                       as String,
+            currencyCode: null == currencyCode
+                ? _value.currencyCode
+                : currencyCode // ignore: cast_nullable_to_non_nullable
+                      as String,
+            currencySymbol: null == currencySymbol
+                ? _value.currencySymbol
+                : currencySymbol // ignore: cast_nullable_to_non_nullable
+                      as String,
             balance: null == balance
                 ? _value.balance
                 : balance // ignore: cast_nullable_to_non_nullable
                       as double,
-            currency: freezed == currency
-                ? _value.currency
-                : currency // ignore: cast_nullable_to_non_nullable
-                      as String?,
             icon: freezed == icon
                 ? _value.icon
                 : icon // ignore: cast_nullable_to_non_nullable
@@ -119,17 +128,13 @@ class _$WalletModelCopyWithImpl<$Res, $Val extends WalletModel>
                 ? _value.color
                 : color // ignore: cast_nullable_to_non_nullable
                       as String?,
-            isDefault: freezed == isDefault
-                ? _value.isDefault
-                : isDefault // ignore: cast_nullable_to_non_nullable
-                      as bool?,
+            isActive: null == isActive
+                ? _value.isActive
+                : isActive // ignore: cast_nullable_to_non_nullable
+                      as bool,
             createdAt: freezed == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            updatedAt: freezed == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
                       as DateTime?,
           )
           as $Val,
@@ -147,16 +152,16 @@ abstract class _$$WalletModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
+    int id,
     String name,
     String type,
-    double balance,
-    String? currency,
+    @JsonKey(readValue: _readNested) String currencyCode,
+    @JsonKey(readValue: _readNested) String currencySymbol,
+    @JsonKey(fromJson: _stringToDouble) double balance,
     String? icon,
     String? color,
-    bool? isDefault,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @JsonKey(name: 'is_active') bool isActive,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -177,20 +182,20 @@ class __$$WalletModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? type = null,
+    Object? currencyCode = null,
+    Object? currencySymbol = null,
     Object? balance = null,
-    Object? currency = freezed,
     Object? icon = freezed,
     Object? color = freezed,
-    Object? isDefault = freezed,
+    Object? isActive = null,
     Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(
       _$WalletModelImpl(
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as int,
         name: null == name
             ? _value.name
             : name // ignore: cast_nullable_to_non_nullable
@@ -199,14 +204,18 @@ class __$$WalletModelImplCopyWithImpl<$Res>
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
                   as String,
+        currencyCode: null == currencyCode
+            ? _value.currencyCode
+            : currencyCode // ignore: cast_nullable_to_non_nullable
+                  as String,
+        currencySymbol: null == currencySymbol
+            ? _value.currencySymbol
+            : currencySymbol // ignore: cast_nullable_to_non_nullable
+                  as String,
         balance: null == balance
             ? _value.balance
             : balance // ignore: cast_nullable_to_non_nullable
                   as double,
-        currency: freezed == currency
-            ? _value.currency
-            : currency // ignore: cast_nullable_to_non_nullable
-                  as String?,
         icon: freezed == icon
             ? _value.icon
             : icon // ignore: cast_nullable_to_non_nullable
@@ -215,17 +224,13 @@ class __$$WalletModelImplCopyWithImpl<$Res>
             ? _value.color
             : color // ignore: cast_nullable_to_non_nullable
                   as String?,
-        isDefault: freezed == isDefault
-            ? _value.isDefault
-            : isDefault // ignore: cast_nullable_to_non_nullable
-                  as bool?,
+        isActive: null == isActive
+            ? _value.isActive
+            : isActive // ignore: cast_nullable_to_non_nullable
+                  as bool,
         createdAt: freezed == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        updatedAt: freezed == updatedAt
-            ? _value.updatedAt
-            : updatedAt // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
       ),
     );
@@ -239,42 +244,47 @@ class _$WalletModelImpl implements _WalletModel {
     required this.id,
     required this.name,
     required this.type,
-    required this.balance,
-    this.currency,
+    @JsonKey(readValue: _readNested) required this.currencyCode,
+    @JsonKey(readValue: _readNested) required this.currencySymbol,
+    @JsonKey(fromJson: _stringToDouble) required this.balance,
     this.icon,
     this.color,
-    this.isDefault,
-    this.createdAt,
-    this.updatedAt,
+    @JsonKey(name: 'is_active') this.isActive = true,
+    @JsonKey(name: 'created_at') this.createdAt,
   });
 
   factory _$WalletModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$WalletModelImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String name;
   @override
   final String type;
   @override
-  final double balance;
+  @JsonKey(readValue: _readNested)
+  final String currencyCode;
   @override
-  final String? currency;
+  @JsonKey(readValue: _readNested)
+  final String currencySymbol;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  final double balance;
   @override
   final String? icon;
   @override
   final String? color;
   @override
-  final bool? isDefault;
+  @JsonKey(name: 'is_active')
+  final bool isActive;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
-  @override
-  final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'WalletModel(id: $id, name: $name, type: $type, balance: $balance, currency: $currency, icon: $icon, color: $color, isDefault: $isDefault, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'WalletModel(id: $id, name: $name, type: $type, currencyCode: $currencyCode, currencySymbol: $currencySymbol, balance: $balance, icon: $icon, color: $color, isActive: $isActive, createdAt: $createdAt)';
   }
 
   @override
@@ -285,17 +295,17 @@ class _$WalletModelImpl implements _WalletModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.currencyCode, currencyCode) ||
+                other.currencyCode == currencyCode) &&
+            (identical(other.currencySymbol, currencySymbol) ||
+                other.currencySymbol == currencySymbol) &&
             (identical(other.balance, balance) || other.balance == balance) &&
-            (identical(other.currency, currency) ||
-                other.currency == currency) &&
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.color, color) || other.color == color) &&
-            (identical(other.isDefault, isDefault) ||
-                other.isDefault == isDefault) &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -305,13 +315,13 @@ class _$WalletModelImpl implements _WalletModel {
     id,
     name,
     type,
+    currencyCode,
+    currencySymbol,
     balance,
-    currency,
     icon,
     color,
-    isDefault,
+    isActive,
     createdAt,
-    updatedAt,
   );
 
   /// Create a copy of WalletModel
@@ -330,41 +340,46 @@ class _$WalletModelImpl implements _WalletModel {
 
 abstract class _WalletModel implements WalletModel {
   const factory _WalletModel({
-    required final String id,
+    required final int id,
     required final String name,
     required final String type,
-    required final double balance,
-    final String? currency,
+    @JsonKey(readValue: _readNested) required final String currencyCode,
+    @JsonKey(readValue: _readNested) required final String currencySymbol,
+    @JsonKey(fromJson: _stringToDouble) required final double balance,
     final String? icon,
     final String? color,
-    final bool? isDefault,
-    final DateTime? createdAt,
-    final DateTime? updatedAt,
+    @JsonKey(name: 'is_active') final bool isActive,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$WalletModelImpl;
 
   factory _WalletModel.fromJson(Map<String, dynamic> json) =
       _$WalletModelImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get name;
   @override
   String get type;
   @override
-  double get balance;
+  @JsonKey(readValue: _readNested)
+  String get currencyCode;
   @override
-  String? get currency;
+  @JsonKey(readValue: _readNested)
+  String get currencySymbol;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  double get balance;
   @override
   String? get icon;
   @override
   String? get color;
   @override
-  bool? get isDefault;
+  @JsonKey(name: 'is_active')
+  bool get isActive;
   @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
-  @override
-  DateTime? get updatedAt;
 
   /// Create a copy of WalletModel
   /// with the given fields replaced by the non-null parameter values.

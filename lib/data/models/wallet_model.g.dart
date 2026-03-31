@@ -8,20 +8,18 @@ part of 'wallet_model.dart';
 
 _$WalletModelImpl _$$WalletModelImplFromJson(Map<String, dynamic> json) =>
     _$WalletModelImpl(
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       type: json['type'] as String,
-      balance: (json['balance'] as num).toDouble(),
-      currency: json['currency'] as String?,
+      currencyCode: _readNested(json, 'currencyCode') as String,
+      currencySymbol: _readNested(json, 'currencySymbol') as String,
+      balance: _stringToDouble(json['balance'] as Object),
       icon: json['icon'] as String?,
       color: json['color'] as String?,
-      isDefault: json['isDefault'] as bool?,
-      createdAt: json['createdAt'] == null
+      isActive: json['is_active'] as bool? ?? true,
+      createdAt: json['created_at'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$$WalletModelImplToJson(_$WalletModelImpl instance) =>
@@ -29,11 +27,11 @@ Map<String, dynamic> _$$WalletModelImplToJson(_$WalletModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'type': instance.type,
+      'currencyCode': instance.currencyCode,
+      'currencySymbol': instance.currencySymbol,
       'balance': instance.balance,
-      'currency': instance.currency,
       'icon': instance.icon,
       'color': instance.color,
-      'isDefault': instance.isDefault,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'is_active': instance.isActive,
+      'created_at': instance.createdAt?.toIso8601String(),
     };

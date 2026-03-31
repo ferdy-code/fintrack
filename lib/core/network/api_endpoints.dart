@@ -2,7 +2,7 @@ class ApiEndpoints {
   static const String login = '/auth/login';
   static const String register = '/auth/register';
   static const String logout = '/auth/logout';
-  static const String profile = '/auth/profile';
+  static const String profile = '/auth/user';
 
   static const String wallets = '/wallets';
   static String walletDetail(String id) => '/wallets/$id';

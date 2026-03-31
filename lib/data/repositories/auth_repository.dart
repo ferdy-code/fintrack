@@ -47,8 +47,8 @@ class AuthRepository {
         ApiEndpoints.login,
         data: {'email': email, 'password': password},
       );
-      final token = response.data['token'] as String;
-      final userJson = response.data['user'] as Map<String, dynamic>;
+      final token = response.data['data']['token'] as String;
+      final userJson = response.data['data']['user'] as Map<String, dynamic>;
       final user = UserModel.fromJson(userJson);
       await SecureStorageService.saveToken(token);
       await SecureStorageService.saveUser(jsonEncode(userJson));

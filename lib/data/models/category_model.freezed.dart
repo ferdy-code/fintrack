@@ -21,12 +21,13 @@ CategoryModel _$CategoryModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CategoryModel {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  String? get icon => throw _privateConstructorUsedError;
-  String? get color => throw _privateConstructorUsedError;
-  int? get sortOrder => throw _privateConstructorUsedError;
+  String get icon => throw _privateConstructorUsedError;
+  String get color => throw _privateConstructorUsedError;
+  bool get isSystem => throw _privateConstructorUsedError;
+  int? get parentId => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this CategoryModel to a JSON map.
@@ -47,12 +48,13 @@ abstract class $CategoryModelCopyWith<$Res> {
   ) = _$CategoryModelCopyWithImpl<$Res, CategoryModel>;
   @useResult
   $Res call({
-    String id,
+    int id,
     String name,
     String type,
-    String? icon,
-    String? color,
-    int? sortOrder,
+    String icon,
+    String color,
+    bool isSystem,
+    int? parentId,
     DateTime? createdAt,
   });
 }
@@ -75,9 +77,10 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
     Object? id = null,
     Object? name = null,
     Object? type = null,
-    Object? icon = freezed,
-    Object? color = freezed,
-    Object? sortOrder = freezed,
+    Object? icon = null,
+    Object? color = null,
+    Object? isSystem = null,
+    Object? parentId = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(
@@ -85,7 +88,7 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as int,
             name: null == name
                 ? _value.name
                 : name // ignore: cast_nullable_to_non_nullable
@@ -94,17 +97,21 @@ class _$CategoryModelCopyWithImpl<$Res, $Val extends CategoryModel>
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
                       as String,
-            icon: freezed == icon
+            icon: null == icon
                 ? _value.icon
                 : icon // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            color: freezed == color
+                      as String,
+            color: null == color
                 ? _value.color
                 : color // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            sortOrder: freezed == sortOrder
-                ? _value.sortOrder
-                : sortOrder // ignore: cast_nullable_to_non_nullable
+                      as String,
+            isSystem: null == isSystem
+                ? _value.isSystem
+                : isSystem // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            parentId: freezed == parentId
+                ? _value.parentId
+                : parentId // ignore: cast_nullable_to_non_nullable
                       as int?,
             createdAt: freezed == createdAt
                 ? _value.createdAt
@@ -126,12 +133,13 @@ abstract class _$$CategoryModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
+    int id,
     String name,
     String type,
-    String? icon,
-    String? color,
-    int? sortOrder,
+    String icon,
+    String color,
+    bool isSystem,
+    int? parentId,
     DateTime? createdAt,
   });
 }
@@ -153,9 +161,10 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? type = null,
-    Object? icon = freezed,
-    Object? color = freezed,
-    Object? sortOrder = freezed,
+    Object? icon = null,
+    Object? color = null,
+    Object? isSystem = null,
+    Object? parentId = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(
@@ -163,7 +172,7 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as int,
         name: null == name
             ? _value.name
             : name // ignore: cast_nullable_to_non_nullable
@@ -172,17 +181,21 @@ class __$$CategoryModelImplCopyWithImpl<$Res>
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
                   as String,
-        icon: freezed == icon
+        icon: null == icon
             ? _value.icon
             : icon // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        color: freezed == color
+                  as String,
+        color: null == color
             ? _value.color
             : color // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        sortOrder: freezed == sortOrder
-            ? _value.sortOrder
-            : sortOrder // ignore: cast_nullable_to_non_nullable
+                  as String,
+        isSystem: null == isSystem
+            ? _value.isSystem
+            : isSystem // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        parentId: freezed == parentId
+            ? _value.parentId
+            : parentId // ignore: cast_nullable_to_non_nullable
                   as int?,
         createdAt: freezed == createdAt
             ? _value.createdAt
@@ -200,9 +213,10 @@ class _$CategoryModelImpl implements _CategoryModel {
     required this.id,
     required this.name,
     required this.type,
-    this.icon,
-    this.color,
-    this.sortOrder,
+    required this.icon,
+    required this.color,
+    this.isSystem = false,
+    this.parentId,
     this.createdAt,
   });
 
@@ -210,23 +224,26 @@ class _$CategoryModelImpl implements _CategoryModel {
       _$$CategoryModelImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String name;
   @override
   final String type;
   @override
-  final String? icon;
+  final String icon;
   @override
-  final String? color;
+  final String color;
   @override
-  final int? sortOrder;
+  @JsonKey()
+  final bool isSystem;
+  @override
+  final int? parentId;
   @override
   final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'CategoryModel(id: $id, name: $name, type: $type, icon: $icon, color: $color, sortOrder: $sortOrder, createdAt: $createdAt)';
+    return 'CategoryModel(id: $id, name: $name, type: $type, icon: $icon, color: $color, isSystem: $isSystem, parentId: $parentId, createdAt: $createdAt)';
   }
 
   @override
@@ -239,8 +256,10 @@ class _$CategoryModelImpl implements _CategoryModel {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.icon, icon) || other.icon == icon) &&
             (identical(other.color, color) || other.color == color) &&
-            (identical(other.sortOrder, sortOrder) ||
-                other.sortOrder == sortOrder) &&
+            (identical(other.isSystem, isSystem) ||
+                other.isSystem == isSystem) &&
+            (identical(other.parentId, parentId) ||
+                other.parentId == parentId) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -254,7 +273,8 @@ class _$CategoryModelImpl implements _CategoryModel {
     type,
     icon,
     color,
-    sortOrder,
+    isSystem,
+    parentId,
     createdAt,
   );
 
@@ -274,12 +294,13 @@ class _$CategoryModelImpl implements _CategoryModel {
 
 abstract class _CategoryModel implements CategoryModel {
   const factory _CategoryModel({
-    required final String id,
+    required final int id,
     required final String name,
     required final String type,
-    final String? icon,
-    final String? color,
-    final int? sortOrder,
+    required final String icon,
+    required final String color,
+    final bool isSystem,
+    final int? parentId,
     final DateTime? createdAt,
   }) = _$CategoryModelImpl;
 
@@ -287,17 +308,19 @@ abstract class _CategoryModel implements CategoryModel {
       _$CategoryModelImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get name;
   @override
   String get type;
   @override
-  String? get icon;
+  String get icon;
   @override
-  String? get color;
+  String get color;
   @override
-  int? get sortOrder;
+  bool get isSystem;
+  @override
+  int? get parentId;
   @override
   DateTime? get createdAt;
 
