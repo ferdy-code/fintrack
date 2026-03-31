@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../data/local/secure_storage_service.dart';
+import '../../presentation/auth/providers/auth_provider.dart';
 import '../../presentation/shared/main_shell.dart';
 import '../../presentation/auth/screens/splash_screen.dart';
 import '../../presentation/auth/screens/login_screen.dart';
@@ -25,27 +25,36 @@ import '../../presentation/more/export/screens/export_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
+final _authRefreshNotifier = ValueNotifier<Object?>(null);
+
 final routerProvider = Provider<GoRouter>((ref) {
+  ref.listen<AuthState>(authProvider, (_, __) {
+    _authRefreshNotifier.value = Object();
+  });
+
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/splash',
-    redirect: (context, state) async {
-      final token = await SecureStorageService.getToken();
+    refreshListenable: _authRefreshNotifier,
+    redirect: (context, state) {
+      final authState = ref.read(authProvider);
       final isAuthRoute =
           state.matchedLocation == '/login' ||
           state.matchedLocation == '/register' ||
           state.matchedLocation == '/splash';
 
       if (state.matchedLocation == '/splash') {
-        return token != null ? '/home' : '/login';
+        if (authState.status == AuthStatus.authenticated) return '/home';
+        if (authState.status == AuthStatus.unauthenticated) return '/login';
+        return null;
       }
 
-      if (token == null && !isAuthRoute) {
-        return '/login';
-      }
-
-      if (token != null && isAuthRoute) {
+      if (authState.status == AuthStatus.authenticated && isAuthRoute) {
         return '/home';
+      }
+
+      if (authState.status != AuthStatus.authenticated && !isAuthRoute) {
+        return '/login';
       }
 
       return null;

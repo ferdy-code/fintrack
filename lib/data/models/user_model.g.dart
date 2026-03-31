@@ -8,18 +8,14 @@ part of 'user_model.dart';
 
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
-      id: json['id'] as String,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       email: json['email'] as String,
-      avatar: json['avatar'] as String?,
-      currency: json['currency'] as String?,
-      locale: json['locale'] as String?,
+      defaultCurrencyCode: json['defaultCurrencyCode'] as String? ?? 'IDR',
+      avatarUrl: json['avatarUrl'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
-      updatedAt: json['updatedAt'] == null
-          ? null
-          : DateTime.parse(json['updatedAt'] as String),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -27,9 +23,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
-      'avatar': instance.avatar,
-      'currency': instance.currency,
-      'locale': instance.locale,
+      'defaultCurrencyCode': instance.defaultCurrencyCode,
+      'avatarUrl': instance.avatarUrl,
       'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
     };

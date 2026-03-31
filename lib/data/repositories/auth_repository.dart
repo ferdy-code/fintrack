@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:dio/dio.dart';
 import '../models/user_model.dart';
 import '../../core/network/dio_client.dart';
@@ -8,39 +9,50 @@ import '../../data/local/secure_storage_service.dart';
 class AuthRepository {
   final Dio _dio = DioClient.instance;
 
-  Future<Map<String, dynamic>> login({
+  Future<Map<String, dynamic>> register({
+    required String name,
     required String email,
     required String password,
+    required String passwordConfirmation,
+    required String defaultCurrencyCode,
   }) async {
     try {
-      final response = await _dio.post(ApiEndpoints.login, data: {
-        'email': email,
-        'password': password,
-      });
-      final token = response.data['token'] as String;
-      final user = response.data['user'] as Map<String, dynamic>;
+      final response = await _dio.post(
+        ApiEndpoints.register,
+        data: {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password_confirmation': passwordConfirmation,
+          'default_currency_code': defaultCurrencyCode,
+        },
+      );
+      final token = response.data['data']['token'] as String;
+      final userJson = response.data['data']['user'] as Map<String, dynamic>;
+      final user = UserModel.fromJson(userJson);
       await SecureStorageService.saveToken(token);
-      await SecureStorageService.saveUser(UserModel.fromJson(user).toString());
-      return response.data as Map<String, dynamic>;
+      await SecureStorageService.saveUser(jsonEncode(userJson));
+      return {'user': user, 'token': token};
     } on DioException catch (e) {
       throw handleDioError(e);
     }
   }
 
-  Future<Map<String, dynamic>> register({
-    required String name,
+  Future<Map<String, dynamic>> login({
     required String email,
     required String password,
   }) async {
     try {
-      final response = await _dio.post(ApiEndpoints.register, data: {
-        'name': name,
-        'email': email,
-        'password': password,
-      });
+      final response = await _dio.post(
+        ApiEndpoints.login,
+        data: {'email': email, 'password': password},
+      );
       final token = response.data['token'] as String;
+      final userJson = response.data['user'] as Map<String, dynamic>;
+      final user = UserModel.fromJson(userJson);
       await SecureStorageService.saveToken(token);
-      return response.data as Map<String, dynamic>;
+      await SecureStorageService.saveUser(jsonEncode(userJson));
+      return {'user': user, 'token': token};
     } on DioException catch (e) {
       throw handleDioError(e);
     }
@@ -53,10 +65,52 @@ class AuthRepository {
     await SecureStorageService.deleteAll();
   }
 
-  Future<UserModel> getProfile() async {
+  Future<UserModel> getUser() async {
     try {
       final response = await _dio.get(ApiEndpoints.profile);
-      return UserModel.fromJson(response.data['data'] as Map<String, dynamic>);
+      final data = response.data['data'] as Map<String, dynamic>?;
+      final userJson = data ?? response.data as Map<String, dynamic>;
+      await SecureStorageService.saveUser(jsonEncode(userJson));
+      return UserModel.fromJson(userJson);
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<UserModel> updateProfile({
+    required String name,
+    required String defaultCurrencyCode,
+  }) async {
+    try {
+      final response = await _dio.put(
+        ApiEndpoints.profile,
+        data: {'name': name, 'default_currency_code': defaultCurrencyCode},
+      );
+      final userJson = response.data['data'] as Map<String, dynamic>?;
+      if (userJson != null) {
+        await SecureStorageService.saveUser(jsonEncode(userJson));
+        return UserModel.fromJson(userJson);
+      }
+      return await getUser();
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<void> updatePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String newPasswordConfirmation,
+  }) async {
+    try {
+      await _dio.put(
+        '/auth/password',
+        data: {
+          'current_password': currentPassword,
+          'new_password': newPassword,
+          'new_password_confirmation': newPasswordConfirmation,
+        },
+      );
     } on DioException catch (e) {
       throw handleDioError(e);
     }

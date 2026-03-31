@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../core/constants/app_colors.dart';
+import '../providers/auth_provider.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigate();
-  }
-
-  Future<void> _navigate() async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (!mounted) return;
+    Future.microtask(() => ref.read(authProvider.notifier).checkAuth());
   }
 
   @override
@@ -26,9 +24,22 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            FlutterLogo(size: 100),
+            Icon(
+              Icons.account_balance_wallet_rounded,
+              size: 80,
+              color: AppColors.primarySeed,
+            ),
             SizedBox(height: 24),
-            Text('FinTrack', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+            Text(
+              'FinTrack',
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primarySeed,
+              ),
+            ),
+            SizedBox(height: 32),
+            CircularProgressIndicator(),
           ],
         ),
       ),
