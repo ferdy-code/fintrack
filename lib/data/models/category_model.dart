@@ -6,14 +6,16 @@ part 'category_model.g.dart';
 @freezed
 class CategoryModel with _$CategoryModel {
   const factory CategoryModel({
-    required String id,
+    required int id,
     required String name,
     required String type,
-    String? icon,
-    String? color,
-    int? sortOrder,
+    required String icon,
+    required String color,
+    @Default(false) bool isSystem,
+    int? parentId,
     DateTime? createdAt,
   }) = _CategoryModel;
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
+  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
 }

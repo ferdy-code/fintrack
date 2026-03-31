@@ -1,25 +1,36 @@
 import 'package:intl/intl.dart';
 
 class CurrencyFormatter {
-  static String format(double amount, {String symbol = '\$', int decimalDigits = 2}) {
-    final formatter = NumberFormat.currency(
-      symbol: symbol,
-      decimalDigits: decimalDigits,
-    );
-    return formatter.format(amount);
-  }
+  static const Map<String, String> _currencyLocales = {
+    'IDR': 'id_ID',
+    'USD': 'en_US',
+    'EUR': 'de_DE',
+    'GBP': 'en_GB',
+    'JPY': 'ja_JP',
+    'SGD': 'en_SG',
+    'MYR': 'ms_MY',
+    'CNY': 'zh_CN',
+    'KRW': 'ko_KR',
+    'AUD': 'en_AU',
+  };
 
-  static String formatCompact(double amount, {String symbol = '\$'}) {
-    if (amount >= 1000000) {
-      return '$symbol${(amount / 1000000).toStringAsFixed(1)}M';
-    } else if (amount >= 1000) {
-      return '$symbol${(amount / 1000).toStringAsFixed(1)}K';
-    }
-    return format(amount, symbol: symbol);
-  }
+  static String formatAmount(
+    double amount,
+    String currencyCode,
+    String symbol, {
+    int? decimalPlaces,
+  }) {
+    final locale = _currencyLocales[currencyCode] ?? 'en_US';
 
-  static double parse(String value) {
-    final cleaned = value.replaceAll(RegExp(r'[^\d.-]'), '');
-    return double.tryParse(cleaned) ?? 0.0;
+    final decimals =
+        decimalPlaces ??
+        (currencyCode == 'IDR' || currencyCode == 'JPY' || currencyCode == 'KRW'
+            ? 0
+            : 2);
+
+    final pattern = '#,##0${decimals > 0 ? '.${'0' * decimals}' : ''}';
+
+    final formatter = NumberFormat(pattern, locale);
+    return '$symbol ${formatter.format(amount)}';
   }
 }

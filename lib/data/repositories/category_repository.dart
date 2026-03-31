@@ -9,20 +9,56 @@ class CategoryRepository {
 
   Future<List<CategoryModel>> getCategories({String? type}) async {
     try {
-      final response = await _dio.get(ApiEndpoints.categories, queryParameters: {
-        if (type != null) 'type': type,
-      });
+      final response = await _dio.get(
+        ApiEndpoints.categories,
+        queryParameters: {if (type != null) 'type': type},
+      );
       final list = response.data['data'] as List;
-      return list.map((e) => CategoryModel.fromJson(e as Map<String, dynamic>)).toList();
+      return list
+          .map((e) => CategoryModel.fromJson(e as Map<String, dynamic>))
+          .toList();
     } on DioException catch (e) {
       throw handleDioError(e);
     }
   }
 
-  Future<CategoryModel> createCategory(Map<String, dynamic> data) async {
+  Future<CategoryModel> createCategory({
+    required String name,
+    required String type,
+    required String icon,
+    required String color,
+  }) async {
     try {
-      final response = await _dio.post(ApiEndpoints.categories, data: data);
-      return CategoryModel.fromJson(response.data['data'] as Map<String, dynamic>);
+      final response = await _dio.post(
+        ApiEndpoints.categories,
+        data: {'name': name, 'type': type, 'icon': icon, 'color': color},
+      );
+      return CategoryModel.fromJson(
+        response.data['data'] as Map<String, dynamic>,
+      );
+    } on DioException catch (e) {
+      throw handleDioError(e);
+    }
+  }
+
+  Future<CategoryModel> updateCategory(
+    String id, {
+    String? name,
+    String? icon,
+    String? color,
+  }) async {
+    try {
+      final response = await _dio.put(
+        ApiEndpoints.categoryDetail(id),
+        data: {
+          if (name != null) 'name': name,
+          if (icon != null) 'icon': icon,
+          if (color != null) 'color': color,
+        },
+      );
+      return CategoryModel.fromJson(
+        response.data['data'] as Map<String, dynamic>,
+      );
     } on DioException catch (e) {
       throw handleDioError(e);
     }
