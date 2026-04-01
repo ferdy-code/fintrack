@@ -9,23 +9,27 @@ part of 'transaction_model.dart';
 _$TransactionModelImpl _$$TransactionModelImplFromJson(
   Map<String, dynamic> json,
 ) => _$TransactionModelImpl(
-  id: json['id'] as String,
+  id: (json['id'] as num).toInt(),
   type: json['type'] as String,
-  amount: (json['amount'] as num).toDouble(),
-  categoryId: json['categoryId'] as String,
-  walletId: json['walletId'] as String,
+  amount: _stringToDouble(json['amount'] as Object),
+  currencyCode: _readNested(json, 'currencyCode') as String? ?? '',
   description: json['description'] as String?,
-  note: json['note'] as String?,
-  date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
-  recurringId: json['recurringId'] as String?,
-  tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
-  attachment: json['attachment'] as String?,
-  createdAt: json['createdAt'] == null
+  merchantName: json['merchant_name'] as String?,
+  transactionDate: DateTime.parse(json['transaction_date'] as String),
+  wallet: json['wallet'] == null
       ? null
-      : DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
+      : WalletModel.fromJson(json['wallet'] as Map<String, dynamic>),
+  category: json['category'] == null
       ? null
-      : DateTime.parse(json['updatedAt'] as String),
+      : CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
+  aiCategorized: json['ai_categorized'] as bool? ?? false,
+  aiConfidence: (json['ai_confidence'] as num?)?.toDouble(),
+  notes: json['notes'] as String?,
+  attachmentUrl: json['attachmentUrl'] as String?,
+  isRecurring: json['is_recurring'] as bool? ?? false,
+  createdAt: json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String),
 );
 
 Map<String, dynamic> _$$TransactionModelImplToJson(
@@ -34,14 +38,16 @@ Map<String, dynamic> _$$TransactionModelImplToJson(
   'id': instance.id,
   'type': instance.type,
   'amount': instance.amount,
-  'categoryId': instance.categoryId,
-  'walletId': instance.walletId,
+  'currencyCode': instance.currencyCode,
   'description': instance.description,
-  'note': instance.note,
-  'date': instance.date?.toIso8601String(),
-  'recurringId': instance.recurringId,
-  'tags': instance.tags,
-  'attachment': instance.attachment,
-  'createdAt': instance.createdAt?.toIso8601String(),
-  'updatedAt': instance.updatedAt?.toIso8601String(),
+  'merchant_name': instance.merchantName,
+  'transaction_date': instance.transactionDate.toIso8601String(),
+  'wallet': instance.wallet,
+  'category': instance.category,
+  'ai_categorized': instance.aiCategorized,
+  'ai_confidence': instance.aiConfidence,
+  'notes': instance.notes,
+  'attachmentUrl': instance.attachmentUrl,
+  'is_recurring': instance.isRecurring,
+  'created_at': instance.createdAt?.toIso8601String(),
 };
