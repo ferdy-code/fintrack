@@ -21,19 +21,29 @@ TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TransactionModel {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
   double get amount => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
-  String get walletId => throw _privateConstructorUsedError;
+  @JsonKey(readValue: _readNested)
+  String get currencyCode => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String? get note => throw _privateConstructorUsedError;
-  DateTime? get date => throw _privateConstructorUsedError;
-  String? get recurringId => throw _privateConstructorUsedError;
-  List<String>? get tags => throw _privateConstructorUsedError;
-  String? get attachment => throw _privateConstructorUsedError;
+  @JsonKey(name: 'merchant_name')
+  String? get merchantName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'transaction_date')
+  DateTime get transactionDate => throw _privateConstructorUsedError;
+  WalletModel? get wallet => throw _privateConstructorUsedError;
+  CategoryModel? get category => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ai_categorized')
+  bool get aiCategorized => throw _privateConstructorUsedError;
+  @JsonKey(name: 'ai_confidence')
+  double? get aiConfidence => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
+  String? get attachmentUrl => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_recurring')
+  bool get isRecurring => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this TransactionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,20 +63,25 @@ abstract class $TransactionModelCopyWith<$Res> {
   ) = _$TransactionModelCopyWithImpl<$Res, TransactionModel>;
   @useResult
   $Res call({
-    String id,
+    int id,
     String type,
-    double amount,
-    String categoryId,
-    String walletId,
+    @JsonKey(fromJson: _stringToDouble) double amount,
+    @JsonKey(readValue: _readNested) String currencyCode,
     String? description,
-    String? note,
-    DateTime? date,
-    String? recurringId,
-    List<String>? tags,
-    String? attachment,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @JsonKey(name: 'merchant_name') String? merchantName,
+    @JsonKey(name: 'transaction_date') DateTime transactionDate,
+    WalletModel? wallet,
+    CategoryModel? category,
+    @JsonKey(name: 'ai_categorized') bool aiCategorized,
+    @JsonKey(name: 'ai_confidence') double? aiConfidence,
+    String? notes,
+    String? attachmentUrl,
+    @JsonKey(name: 'is_recurring') bool isRecurring,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
+
+  $WalletModelCopyWith<$Res>? get wallet;
+  $CategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -87,23 +102,25 @@ class _$TransactionModelCopyWithImpl<$Res, $Val extends TransactionModel>
     Object? id = null,
     Object? type = null,
     Object? amount = null,
-    Object? categoryId = null,
-    Object? walletId = null,
+    Object? currencyCode = null,
     Object? description = freezed,
-    Object? note = freezed,
-    Object? date = freezed,
-    Object? recurringId = freezed,
-    Object? tags = freezed,
-    Object? attachment = freezed,
+    Object? merchantName = freezed,
+    Object? transactionDate = null,
+    Object? wallet = freezed,
+    Object? category = freezed,
+    Object? aiCategorized = null,
+    Object? aiConfidence = freezed,
+    Object? notes = freezed,
+    Object? attachmentUrl = freezed,
+    Object? isRecurring = null,
     Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(
       _value.copyWith(
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as int,
             type: null == type
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
@@ -112,49 +129,85 @@ class _$TransactionModelCopyWithImpl<$Res, $Val extends TransactionModel>
                 ? _value.amount
                 : amount // ignore: cast_nullable_to_non_nullable
                       as double,
-            categoryId: null == categoryId
-                ? _value.categoryId
-                : categoryId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            walletId: null == walletId
-                ? _value.walletId
-                : walletId // ignore: cast_nullable_to_non_nullable
+            currencyCode: null == currencyCode
+                ? _value.currencyCode
+                : currencyCode // ignore: cast_nullable_to_non_nullable
                       as String,
             description: freezed == description
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
                       as String?,
-            note: freezed == note
-                ? _value.note
-                : note // ignore: cast_nullable_to_non_nullable
+            merchantName: freezed == merchantName
+                ? _value.merchantName
+                : merchantName // ignore: cast_nullable_to_non_nullable
                       as String?,
-            date: freezed == date
-                ? _value.date
-                : date // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            recurringId: freezed == recurringId
-                ? _value.recurringId
-                : recurringId // ignore: cast_nullable_to_non_nullable
+            transactionDate: null == transactionDate
+                ? _value.transactionDate
+                : transactionDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            wallet: freezed == wallet
+                ? _value.wallet
+                : wallet // ignore: cast_nullable_to_non_nullable
+                      as WalletModel?,
+            category: freezed == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                      as CategoryModel?,
+            aiCategorized: null == aiCategorized
+                ? _value.aiCategorized
+                : aiCategorized // ignore: cast_nullable_to_non_nullable
+                      as bool,
+            aiConfidence: freezed == aiConfidence
+                ? _value.aiConfidence
+                : aiConfidence // ignore: cast_nullable_to_non_nullable
+                      as double?,
+            notes: freezed == notes
+                ? _value.notes
+                : notes // ignore: cast_nullable_to_non_nullable
                       as String?,
-            tags: freezed == tags
-                ? _value.tags
-                : tags // ignore: cast_nullable_to_non_nullable
-                      as List<String>?,
-            attachment: freezed == attachment
-                ? _value.attachment
-                : attachment // ignore: cast_nullable_to_non_nullable
+            attachmentUrl: freezed == attachmentUrl
+                ? _value.attachmentUrl
+                : attachmentUrl // ignore: cast_nullable_to_non_nullable
                       as String?,
+            isRecurring: null == isRecurring
+                ? _value.isRecurring
+                : isRecurring // ignore: cast_nullable_to_non_nullable
+                      as bool,
             createdAt: freezed == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
                       as DateTime?,
-            updatedAt: freezed == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of TransactionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WalletModelCopyWith<$Res>? get wallet {
+    if (_value.wallet == null) {
+      return null;
+    }
+
+    return $WalletModelCopyWith<$Res>(_value.wallet!, (value) {
+      return _then(_value.copyWith(wallet: value) as $Val);
+    });
+  }
+
+  /// Create a copy of TransactionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryModelCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $CategoryModelCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -168,20 +221,27 @@ abstract class _$$TransactionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
+    int id,
     String type,
-    double amount,
-    String categoryId,
-    String walletId,
+    @JsonKey(fromJson: _stringToDouble) double amount,
+    @JsonKey(readValue: _readNested) String currencyCode,
     String? description,
-    String? note,
-    DateTime? date,
-    String? recurringId,
-    List<String>? tags,
-    String? attachment,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @JsonKey(name: 'merchant_name') String? merchantName,
+    @JsonKey(name: 'transaction_date') DateTime transactionDate,
+    WalletModel? wallet,
+    CategoryModel? category,
+    @JsonKey(name: 'ai_categorized') bool aiCategorized,
+    @JsonKey(name: 'ai_confidence') double? aiConfidence,
+    String? notes,
+    String? attachmentUrl,
+    @JsonKey(name: 'is_recurring') bool isRecurring,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
+
+  @override
+  $WalletModelCopyWith<$Res>? get wallet;
+  @override
+  $CategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -201,23 +261,25 @@ class __$$TransactionModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? type = null,
     Object? amount = null,
-    Object? categoryId = null,
-    Object? walletId = null,
+    Object? currencyCode = null,
     Object? description = freezed,
-    Object? note = freezed,
-    Object? date = freezed,
-    Object? recurringId = freezed,
-    Object? tags = freezed,
-    Object? attachment = freezed,
+    Object? merchantName = freezed,
+    Object? transactionDate = null,
+    Object? wallet = freezed,
+    Object? category = freezed,
+    Object? aiCategorized = null,
+    Object? aiConfidence = freezed,
+    Object? notes = freezed,
+    Object? attachmentUrl = freezed,
+    Object? isRecurring = null,
     Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(
       _$TransactionModelImpl(
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as int,
         type: null == type
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
@@ -226,45 +288,53 @@ class __$$TransactionModelImplCopyWithImpl<$Res>
             ? _value.amount
             : amount // ignore: cast_nullable_to_non_nullable
                   as double,
-        categoryId: null == categoryId
-            ? _value.categoryId
-            : categoryId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        walletId: null == walletId
-            ? _value.walletId
-            : walletId // ignore: cast_nullable_to_non_nullable
+        currencyCode: null == currencyCode
+            ? _value.currencyCode
+            : currencyCode // ignore: cast_nullable_to_non_nullable
                   as String,
         description: freezed == description
             ? _value.description
             : description // ignore: cast_nullable_to_non_nullable
                   as String?,
-        note: freezed == note
-            ? _value.note
-            : note // ignore: cast_nullable_to_non_nullable
+        merchantName: freezed == merchantName
+            ? _value.merchantName
+            : merchantName // ignore: cast_nullable_to_non_nullable
                   as String?,
-        date: freezed == date
-            ? _value.date
-            : date // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        recurringId: freezed == recurringId
-            ? _value.recurringId
-            : recurringId // ignore: cast_nullable_to_non_nullable
+        transactionDate: null == transactionDate
+            ? _value.transactionDate
+            : transactionDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        wallet: freezed == wallet
+            ? _value.wallet
+            : wallet // ignore: cast_nullable_to_non_nullable
+                  as WalletModel?,
+        category: freezed == category
+            ? _value.category
+            : category // ignore: cast_nullable_to_non_nullable
+                  as CategoryModel?,
+        aiCategorized: null == aiCategorized
+            ? _value.aiCategorized
+            : aiCategorized // ignore: cast_nullable_to_non_nullable
+                  as bool,
+        aiConfidence: freezed == aiConfidence
+            ? _value.aiConfidence
+            : aiConfidence // ignore: cast_nullable_to_non_nullable
+                  as double?,
+        notes: freezed == notes
+            ? _value.notes
+            : notes // ignore: cast_nullable_to_non_nullable
                   as String?,
-        tags: freezed == tags
-            ? _value._tags
-            : tags // ignore: cast_nullable_to_non_nullable
-                  as List<String>?,
-        attachment: freezed == attachment
-            ? _value.attachment
-            : attachment // ignore: cast_nullable_to_non_nullable
+        attachmentUrl: freezed == attachmentUrl
+            ? _value.attachmentUrl
+            : attachmentUrl // ignore: cast_nullable_to_non_nullable
                   as String?,
+        isRecurring: null == isRecurring
+            ? _value.isRecurring
+            : isRecurring // ignore: cast_nullable_to_non_nullable
+                  as bool,
         createdAt: freezed == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        updatedAt: freezed == updatedAt
-            ? _value.updatedAt
-            : updatedAt // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
       ),
     );
@@ -277,60 +347,66 @@ class _$TransactionModelImpl implements _TransactionModel {
   const _$TransactionModelImpl({
     required this.id,
     required this.type,
-    required this.amount,
-    required this.categoryId,
-    required this.walletId,
+    @JsonKey(fromJson: _stringToDouble) required this.amount,
+    @JsonKey(readValue: _readNested) this.currencyCode = '',
     this.description,
-    this.note,
-    this.date,
-    this.recurringId,
-    final List<String>? tags,
-    this.attachment,
-    this.createdAt,
-    this.updatedAt,
-  }) : _tags = tags;
+    @JsonKey(name: 'merchant_name') this.merchantName,
+    @JsonKey(name: 'transaction_date') required this.transactionDate,
+    this.wallet,
+    this.category,
+    @JsonKey(name: 'ai_categorized') this.aiCategorized = false,
+    @JsonKey(name: 'ai_confidence') this.aiConfidence,
+    this.notes,
+    this.attachmentUrl,
+    @JsonKey(name: 'is_recurring') this.isRecurring = false,
+    @JsonKey(name: 'created_at') this.createdAt,
+  });
 
   factory _$TransactionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TransactionModelImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
   final String type;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   final double amount;
   @override
-  final String categoryId;
-  @override
-  final String walletId;
+  @JsonKey(readValue: _readNested)
+  final String currencyCode;
   @override
   final String? description;
   @override
-  final String? note;
+  @JsonKey(name: 'merchant_name')
+  final String? merchantName;
   @override
-  final DateTime? date;
+  @JsonKey(name: 'transaction_date')
+  final DateTime transactionDate;
   @override
-  final String? recurringId;
-  final List<String>? _tags;
+  final WalletModel? wallet;
   @override
-  List<String>? get tags {
-    final value = _tags;
-    if (value == null) return null;
-    if (_tags is EqualUnmodifiableListView) return _tags;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
+  final CategoryModel? category;
   @override
-  final String? attachment;
+  @JsonKey(name: 'ai_categorized')
+  final bool aiCategorized;
   @override
+  @JsonKey(name: 'ai_confidence')
+  final double? aiConfidence;
+  @override
+  final String? notes;
+  @override
+  final String? attachmentUrl;
+  @override
+  @JsonKey(name: 'is_recurring')
+  final bool isRecurring;
+  @override
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
-  @override
-  final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'TransactionModel(id: $id, type: $type, amount: $amount, categoryId: $categoryId, walletId: $walletId, description: $description, note: $note, date: $date, recurringId: $recurringId, tags: $tags, attachment: $attachment, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'TransactionModel(id: $id, type: $type, amount: $amount, currencyCode: $currencyCode, description: $description, merchantName: $merchantName, transactionDate: $transactionDate, wallet: $wallet, category: $category, aiCategorized: $aiCategorized, aiConfidence: $aiConfidence, notes: $notes, attachmentUrl: $attachmentUrl, isRecurring: $isRecurring, createdAt: $createdAt)';
   }
 
   @override
@@ -341,23 +417,28 @@ class _$TransactionModelImpl implements _TransactionModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.walletId, walletId) ||
-                other.walletId == walletId) &&
+            (identical(other.currencyCode, currencyCode) ||
+                other.currencyCode == currencyCode) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.note, note) || other.note == note) &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.recurringId, recurringId) ||
-                other.recurringId == recurringId) &&
-            const DeepCollectionEquality().equals(other._tags, _tags) &&
-            (identical(other.attachment, attachment) ||
-                other.attachment == attachment) &&
+            (identical(other.merchantName, merchantName) ||
+                other.merchantName == merchantName) &&
+            (identical(other.transactionDate, transactionDate) ||
+                other.transactionDate == transactionDate) &&
+            (identical(other.wallet, wallet) || other.wallet == wallet) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.aiCategorized, aiCategorized) ||
+                other.aiCategorized == aiCategorized) &&
+            (identical(other.aiConfidence, aiConfidence) ||
+                other.aiConfidence == aiConfidence) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
+            (identical(other.attachmentUrl, attachmentUrl) ||
+                other.attachmentUrl == attachmentUrl) &&
+            (identical(other.isRecurring, isRecurring) ||
+                other.isRecurring == isRecurring) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -367,16 +448,18 @@ class _$TransactionModelImpl implements _TransactionModel {
     id,
     type,
     amount,
-    categoryId,
-    walletId,
+    currencyCode,
     description,
-    note,
-    date,
-    recurringId,
-    const DeepCollectionEquality().hash(_tags),
-    attachment,
+    merchantName,
+    transactionDate,
+    wallet,
+    category,
+    aiCategorized,
+    aiConfidence,
+    notes,
+    attachmentUrl,
+    isRecurring,
     createdAt,
-    updatedAt,
   );
 
   /// Create a copy of TransactionModel
@@ -398,50 +481,64 @@ class _$TransactionModelImpl implements _TransactionModel {
 
 abstract class _TransactionModel implements TransactionModel {
   const factory _TransactionModel({
-    required final String id,
+    required final int id,
     required final String type,
-    required final double amount,
-    required final String categoryId,
-    required final String walletId,
+    @JsonKey(fromJson: _stringToDouble) required final double amount,
+    @JsonKey(readValue: _readNested) final String currencyCode,
     final String? description,
-    final String? note,
-    final DateTime? date,
-    final String? recurringId,
-    final List<String>? tags,
-    final String? attachment,
-    final DateTime? createdAt,
-    final DateTime? updatedAt,
+    @JsonKey(name: 'merchant_name') final String? merchantName,
+    @JsonKey(name: 'transaction_date') required final DateTime transactionDate,
+    final WalletModel? wallet,
+    final CategoryModel? category,
+    @JsonKey(name: 'ai_categorized') final bool aiCategorized,
+    @JsonKey(name: 'ai_confidence') final double? aiConfidence,
+    final String? notes,
+    final String? attachmentUrl,
+    @JsonKey(name: 'is_recurring') final bool isRecurring,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$TransactionModelImpl;
 
   factory _TransactionModel.fromJson(Map<String, dynamic> json) =
       _$TransactionModelImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
   String get type;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   double get amount;
   @override
-  String get categoryId;
-  @override
-  String get walletId;
+  @JsonKey(readValue: _readNested)
+  String get currencyCode;
   @override
   String? get description;
   @override
-  String? get note;
+  @JsonKey(name: 'merchant_name')
+  String? get merchantName;
   @override
-  DateTime? get date;
+  @JsonKey(name: 'transaction_date')
+  DateTime get transactionDate;
   @override
-  String? get recurringId;
+  WalletModel? get wallet;
   @override
-  List<String>? get tags;
+  CategoryModel? get category;
   @override
-  String? get attachment;
+  @JsonKey(name: 'ai_categorized')
+  bool get aiCategorized;
   @override
+  @JsonKey(name: 'ai_confidence')
+  double? get aiConfidence;
+  @override
+  String? get notes;
+  @override
+  String? get attachmentUrl;
+  @override
+  @JsonKey(name: 'is_recurring')
+  bool get isRecurring;
+  @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
-  @override
-  DateTime? get updatedAt;
 
   /// Create a copy of TransactionModel
   /// with the given fields replaced by the non-null parameter values.
