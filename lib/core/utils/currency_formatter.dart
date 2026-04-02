@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:intl/intl.dart';
 
 class CurrencyFormatter {
@@ -20,6 +22,7 @@ class CurrencyFormatter {
     String symbol, {
     int? decimalPlaces,
   }) {
+    log(amount.toString());
     final locale = _currencyLocales[currencyCode] ?? 'en_US';
 
     final decimals =

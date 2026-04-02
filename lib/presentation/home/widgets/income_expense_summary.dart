@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import '../../../../data/models/dashboard_model.dart';
 
 class IncomeExpenseSummary extends StatelessWidget {
-  final double income;
-  final double expense;
+  final MonthSummary monthSummary;
+  final String currencyCode;
+  final String? currencySymbol;
 
-  const IncomeExpenseSummary({super.key, required this.income, required this.expense});
+  const IncomeExpenseSummary({
+    super.key,
+    required this.monthSummary,
+    required this.currencyCode,
+    this.currencySymbol,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const Card(child: Center(child: Text('Income/Expense Summary')));
+    return const SizedBox.shrink();
   }
 }

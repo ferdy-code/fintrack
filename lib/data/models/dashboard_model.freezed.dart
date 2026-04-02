@@ -21,13 +21,24 @@ DashboardModel _$DashboardModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DashboardModel {
+  @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
   double get totalBalance => throw _privateConstructorUsedError;
-  double get totalIncome => throw _privateConstructorUsedError;
-  double get totalExpense => throw _privateConstructorUsedError;
-  List<CategorySpending> get spendingByCategory =>
+  @JsonKey(name: 'default_currency')
+  String get defaultCurrency => throw _privateConstructorUsedError;
+  @JsonKey(name: 'month_summary')
+  MonthSummary get monthSummary => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category_breakdown')
+  List<CategoryBreakdown> get categoryBreakdown =>
       throw _privateConstructorUsedError;
-  List<MonthlyTrend> get monthlyTrends => throw _privateConstructorUsedError;
-  List<BudgetAlert> get budgetAlerts => throw _privateConstructorUsedError;
+  @JsonKey(name: 'budget_alerts')
+  List<BudgetModel> get budgetAlerts => throw _privateConstructorUsedError;
+  @JsonKey(name: 'recent_transactions')
+  List<TransactionModel> get recentTransactions =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'monthly_trend')
+  List<MonthlyTrend> get monthlyTrend => throw _privateConstructorUsedError;
+  @JsonKey(name: 'wallet_balances')
+  List<WalletModel> get walletBalances => throw _privateConstructorUsedError;
 
   /// Serializes this DashboardModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -47,13 +58,20 @@ abstract class $DashboardModelCopyWith<$Res> {
   ) = _$DashboardModelCopyWithImpl<$Res, DashboardModel>;
   @useResult
   $Res call({
+    @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
     double totalBalance,
-    double totalIncome,
-    double totalExpense,
-    List<CategorySpending> spendingByCategory,
-    List<MonthlyTrend> monthlyTrends,
-    List<BudgetAlert> budgetAlerts,
+    @JsonKey(name: 'default_currency') String defaultCurrency,
+    @JsonKey(name: 'month_summary') MonthSummary monthSummary,
+    @JsonKey(name: 'category_breakdown')
+    List<CategoryBreakdown> categoryBreakdown,
+    @JsonKey(name: 'budget_alerts') List<BudgetModel> budgetAlerts,
+    @JsonKey(name: 'recent_transactions')
+    List<TransactionModel> recentTransactions,
+    @JsonKey(name: 'monthly_trend') List<MonthlyTrend> monthlyTrend,
+    @JsonKey(name: 'wallet_balances') List<WalletModel> walletBalances,
   });
+
+  $MonthSummaryCopyWith<$Res> get monthSummary;
 }
 
 /// @nodoc
@@ -72,11 +90,13 @@ class _$DashboardModelCopyWithImpl<$Res, $Val extends DashboardModel>
   @override
   $Res call({
     Object? totalBalance = null,
-    Object? totalIncome = null,
-    Object? totalExpense = null,
-    Object? spendingByCategory = null,
-    Object? monthlyTrends = null,
+    Object? defaultCurrency = null,
+    Object? monthSummary = null,
+    Object? categoryBreakdown = null,
     Object? budgetAlerts = null,
+    Object? recentTransactions = null,
+    Object? monthlyTrend = null,
+    Object? walletBalances = null,
   }) {
     return _then(
       _value.copyWith(
@@ -84,29 +104,47 @@ class _$DashboardModelCopyWithImpl<$Res, $Val extends DashboardModel>
                 ? _value.totalBalance
                 : totalBalance // ignore: cast_nullable_to_non_nullable
                       as double,
-            totalIncome: null == totalIncome
-                ? _value.totalIncome
-                : totalIncome // ignore: cast_nullable_to_non_nullable
-                      as double,
-            totalExpense: null == totalExpense
-                ? _value.totalExpense
-                : totalExpense // ignore: cast_nullable_to_non_nullable
-                      as double,
-            spendingByCategory: null == spendingByCategory
-                ? _value.spendingByCategory
-                : spendingByCategory // ignore: cast_nullable_to_non_nullable
-                      as List<CategorySpending>,
-            monthlyTrends: null == monthlyTrends
-                ? _value.monthlyTrends
-                : monthlyTrends // ignore: cast_nullable_to_non_nullable
-                      as List<MonthlyTrend>,
+            defaultCurrency: null == defaultCurrency
+                ? _value.defaultCurrency
+                : defaultCurrency // ignore: cast_nullable_to_non_nullable
+                      as String,
+            monthSummary: null == monthSummary
+                ? _value.monthSummary
+                : monthSummary // ignore: cast_nullable_to_non_nullable
+                      as MonthSummary,
+            categoryBreakdown: null == categoryBreakdown
+                ? _value.categoryBreakdown
+                : categoryBreakdown // ignore: cast_nullable_to_non_nullable
+                      as List<CategoryBreakdown>,
             budgetAlerts: null == budgetAlerts
                 ? _value.budgetAlerts
                 : budgetAlerts // ignore: cast_nullable_to_non_nullable
-                      as List<BudgetAlert>,
+                      as List<BudgetModel>,
+            recentTransactions: null == recentTransactions
+                ? _value.recentTransactions
+                : recentTransactions // ignore: cast_nullable_to_non_nullable
+                      as List<TransactionModel>,
+            monthlyTrend: null == monthlyTrend
+                ? _value.monthlyTrend
+                : monthlyTrend // ignore: cast_nullable_to_non_nullable
+                      as List<MonthlyTrend>,
+            walletBalances: null == walletBalances
+                ? _value.walletBalances
+                : walletBalances // ignore: cast_nullable_to_non_nullable
+                      as List<WalletModel>,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of DashboardModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $MonthSummaryCopyWith<$Res> get monthSummary {
+    return $MonthSummaryCopyWith<$Res>(_value.monthSummary, (value) {
+      return _then(_value.copyWith(monthSummary: value) as $Val);
+    });
   }
 }
 
@@ -120,13 +158,21 @@ abstract class _$$DashboardModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
+    @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
     double totalBalance,
-    double totalIncome,
-    double totalExpense,
-    List<CategorySpending> spendingByCategory,
-    List<MonthlyTrend> monthlyTrends,
-    List<BudgetAlert> budgetAlerts,
+    @JsonKey(name: 'default_currency') String defaultCurrency,
+    @JsonKey(name: 'month_summary') MonthSummary monthSummary,
+    @JsonKey(name: 'category_breakdown')
+    List<CategoryBreakdown> categoryBreakdown,
+    @JsonKey(name: 'budget_alerts') List<BudgetModel> budgetAlerts,
+    @JsonKey(name: 'recent_transactions')
+    List<TransactionModel> recentTransactions,
+    @JsonKey(name: 'monthly_trend') List<MonthlyTrend> monthlyTrend,
+    @JsonKey(name: 'wallet_balances') List<WalletModel> walletBalances,
   });
+
+  @override
+  $MonthSummaryCopyWith<$Res> get monthSummary;
 }
 
 /// @nodoc
@@ -144,11 +190,13 @@ class __$$DashboardModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? totalBalance = null,
-    Object? totalIncome = null,
-    Object? totalExpense = null,
-    Object? spendingByCategory = null,
-    Object? monthlyTrends = null,
+    Object? defaultCurrency = null,
+    Object? monthSummary = null,
+    Object? categoryBreakdown = null,
     Object? budgetAlerts = null,
+    Object? recentTransactions = null,
+    Object? monthlyTrend = null,
+    Object? walletBalances = null,
   }) {
     return _then(
       _$DashboardModelImpl(
@@ -156,26 +204,34 @@ class __$$DashboardModelImplCopyWithImpl<$Res>
             ? _value.totalBalance
             : totalBalance // ignore: cast_nullable_to_non_nullable
                   as double,
-        totalIncome: null == totalIncome
-            ? _value.totalIncome
-            : totalIncome // ignore: cast_nullable_to_non_nullable
-                  as double,
-        totalExpense: null == totalExpense
-            ? _value.totalExpense
-            : totalExpense // ignore: cast_nullable_to_non_nullable
-                  as double,
-        spendingByCategory: null == spendingByCategory
-            ? _value._spendingByCategory
-            : spendingByCategory // ignore: cast_nullable_to_non_nullable
-                  as List<CategorySpending>,
-        monthlyTrends: null == monthlyTrends
-            ? _value._monthlyTrends
-            : monthlyTrends // ignore: cast_nullable_to_non_nullable
-                  as List<MonthlyTrend>,
+        defaultCurrency: null == defaultCurrency
+            ? _value.defaultCurrency
+            : defaultCurrency // ignore: cast_nullable_to_non_nullable
+                  as String,
+        monthSummary: null == monthSummary
+            ? _value.monthSummary
+            : monthSummary // ignore: cast_nullable_to_non_nullable
+                  as MonthSummary,
+        categoryBreakdown: null == categoryBreakdown
+            ? _value._categoryBreakdown
+            : categoryBreakdown // ignore: cast_nullable_to_non_nullable
+                  as List<CategoryBreakdown>,
         budgetAlerts: null == budgetAlerts
             ? _value._budgetAlerts
             : budgetAlerts // ignore: cast_nullable_to_non_nullable
-                  as List<BudgetAlert>,
+                  as List<BudgetModel>,
+        recentTransactions: null == recentTransactions
+            ? _value._recentTransactions
+            : recentTransactions // ignore: cast_nullable_to_non_nullable
+                  as List<TransactionModel>,
+        monthlyTrend: null == monthlyTrend
+            ? _value._monthlyTrend
+            : monthlyTrend // ignore: cast_nullable_to_non_nullable
+                  as List<MonthlyTrend>,
+        walletBalances: null == walletBalances
+            ? _value._walletBalances
+            : walletBalances // ignore: cast_nullable_to_non_nullable
+                  as List<WalletModel>,
       ),
     );
   }
@@ -185,53 +241,88 @@ class __$$DashboardModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DashboardModelImpl implements _DashboardModel {
   const _$DashboardModelImpl({
+    @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
     required this.totalBalance,
-    required this.totalIncome,
-    required this.totalExpense,
-    required final List<CategorySpending> spendingByCategory,
-    required final List<MonthlyTrend> monthlyTrends,
-    required final List<BudgetAlert> budgetAlerts,
-  }) : _spendingByCategory = spendingByCategory,
-       _monthlyTrends = monthlyTrends,
-       _budgetAlerts = budgetAlerts;
+    @JsonKey(name: 'default_currency') this.defaultCurrency = 'IDR',
+    @JsonKey(name: 'month_summary') required this.monthSummary,
+    @JsonKey(name: 'category_breakdown')
+    required final List<CategoryBreakdown> categoryBreakdown,
+    @JsonKey(name: 'budget_alerts')
+    required final List<BudgetModel> budgetAlerts,
+    @JsonKey(name: 'recent_transactions')
+    required final List<TransactionModel> recentTransactions,
+    @JsonKey(name: 'monthly_trend')
+    required final List<MonthlyTrend> monthlyTrend,
+    @JsonKey(name: 'wallet_balances')
+    required final List<WalletModel> walletBalances,
+  }) : _categoryBreakdown = categoryBreakdown,
+       _budgetAlerts = budgetAlerts,
+       _recentTransactions = recentTransactions,
+       _monthlyTrend = monthlyTrend,
+       _walletBalances = walletBalances;
 
   factory _$DashboardModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$DashboardModelImplFromJson(json);
 
   @override
+  @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
   final double totalBalance;
   @override
-  final double totalIncome;
+  @JsonKey(name: 'default_currency')
+  final String defaultCurrency;
   @override
-  final double totalExpense;
-  final List<CategorySpending> _spendingByCategory;
+  @JsonKey(name: 'month_summary')
+  final MonthSummary monthSummary;
+  final List<CategoryBreakdown> _categoryBreakdown;
   @override
-  List<CategorySpending> get spendingByCategory {
-    if (_spendingByCategory is EqualUnmodifiableListView)
-      return _spendingByCategory;
+  @JsonKey(name: 'category_breakdown')
+  List<CategoryBreakdown> get categoryBreakdown {
+    if (_categoryBreakdown is EqualUnmodifiableListView)
+      return _categoryBreakdown;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_spendingByCategory);
+    return EqualUnmodifiableListView(_categoryBreakdown);
   }
 
-  final List<MonthlyTrend> _monthlyTrends;
+  final List<BudgetModel> _budgetAlerts;
   @override
-  List<MonthlyTrend> get monthlyTrends {
-    if (_monthlyTrends is EqualUnmodifiableListView) return _monthlyTrends;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_monthlyTrends);
-  }
-
-  final List<BudgetAlert> _budgetAlerts;
-  @override
-  List<BudgetAlert> get budgetAlerts {
+  @JsonKey(name: 'budget_alerts')
+  List<BudgetModel> get budgetAlerts {
     if (_budgetAlerts is EqualUnmodifiableListView) return _budgetAlerts;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_budgetAlerts);
   }
 
+  final List<TransactionModel> _recentTransactions;
+  @override
+  @JsonKey(name: 'recent_transactions')
+  List<TransactionModel> get recentTransactions {
+    if (_recentTransactions is EqualUnmodifiableListView)
+      return _recentTransactions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_recentTransactions);
+  }
+
+  final List<MonthlyTrend> _monthlyTrend;
+  @override
+  @JsonKey(name: 'monthly_trend')
+  List<MonthlyTrend> get monthlyTrend {
+    if (_monthlyTrend is EqualUnmodifiableListView) return _monthlyTrend;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_monthlyTrend);
+  }
+
+  final List<WalletModel> _walletBalances;
+  @override
+  @JsonKey(name: 'wallet_balances')
+  List<WalletModel> get walletBalances {
+    if (_walletBalances is EqualUnmodifiableListView) return _walletBalances;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_walletBalances);
+  }
+
   @override
   String toString() {
-    return 'DashboardModel(totalBalance: $totalBalance, totalIncome: $totalIncome, totalExpense: $totalExpense, spendingByCategory: $spendingByCategory, monthlyTrends: $monthlyTrends, budgetAlerts: $budgetAlerts)';
+    return 'DashboardModel(totalBalance: $totalBalance, defaultCurrency: $defaultCurrency, monthSummary: $monthSummary, categoryBreakdown: $categoryBreakdown, budgetAlerts: $budgetAlerts, recentTransactions: $recentTransactions, monthlyTrend: $monthlyTrend, walletBalances: $walletBalances)';
   }
 
   @override
@@ -241,21 +332,29 @@ class _$DashboardModelImpl implements _DashboardModel {
             other is _$DashboardModelImpl &&
             (identical(other.totalBalance, totalBalance) ||
                 other.totalBalance == totalBalance) &&
-            (identical(other.totalIncome, totalIncome) ||
-                other.totalIncome == totalIncome) &&
-            (identical(other.totalExpense, totalExpense) ||
-                other.totalExpense == totalExpense) &&
+            (identical(other.defaultCurrency, defaultCurrency) ||
+                other.defaultCurrency == defaultCurrency) &&
+            (identical(other.monthSummary, monthSummary) ||
+                other.monthSummary == monthSummary) &&
             const DeepCollectionEquality().equals(
-              other._spendingByCategory,
-              _spendingByCategory,
-            ) &&
-            const DeepCollectionEquality().equals(
-              other._monthlyTrends,
-              _monthlyTrends,
+              other._categoryBreakdown,
+              _categoryBreakdown,
             ) &&
             const DeepCollectionEquality().equals(
               other._budgetAlerts,
               _budgetAlerts,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._recentTransactions,
+              _recentTransactions,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._monthlyTrend,
+              _monthlyTrend,
+            ) &&
+            const DeepCollectionEquality().equals(
+              other._walletBalances,
+              _walletBalances,
             ));
   }
 
@@ -264,11 +363,13 @@ class _$DashboardModelImpl implements _DashboardModel {
   int get hashCode => Object.hash(
     runtimeType,
     totalBalance,
-    totalIncome,
-    totalExpense,
-    const DeepCollectionEquality().hash(_spendingByCategory),
-    const DeepCollectionEquality().hash(_monthlyTrends),
+    defaultCurrency,
+    monthSummary,
+    const DeepCollectionEquality().hash(_categoryBreakdown),
     const DeepCollectionEquality().hash(_budgetAlerts),
+    const DeepCollectionEquality().hash(_recentTransactions),
+    const DeepCollectionEquality().hash(_monthlyTrend),
+    const DeepCollectionEquality().hash(_walletBalances),
   );
 
   /// Create a copy of DashboardModel
@@ -290,29 +391,49 @@ class _$DashboardModelImpl implements _DashboardModel {
 
 abstract class _DashboardModel implements DashboardModel {
   const factory _DashboardModel({
+    @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
     required final double totalBalance,
-    required final double totalIncome,
-    required final double totalExpense,
-    required final List<CategorySpending> spendingByCategory,
-    required final List<MonthlyTrend> monthlyTrends,
-    required final List<BudgetAlert> budgetAlerts,
+    @JsonKey(name: 'default_currency') final String defaultCurrency,
+    @JsonKey(name: 'month_summary') required final MonthSummary monthSummary,
+    @JsonKey(name: 'category_breakdown')
+    required final List<CategoryBreakdown> categoryBreakdown,
+    @JsonKey(name: 'budget_alerts')
+    required final List<BudgetModel> budgetAlerts,
+    @JsonKey(name: 'recent_transactions')
+    required final List<TransactionModel> recentTransactions,
+    @JsonKey(name: 'monthly_trend')
+    required final List<MonthlyTrend> monthlyTrend,
+    @JsonKey(name: 'wallet_balances')
+    required final List<WalletModel> walletBalances,
   }) = _$DashboardModelImpl;
 
   factory _DashboardModel.fromJson(Map<String, dynamic> json) =
       _$DashboardModelImpl.fromJson;
 
   @override
+  @JsonKey(name: 'total_balance', fromJson: _stringToDouble)
   double get totalBalance;
   @override
-  double get totalIncome;
+  @JsonKey(name: 'default_currency')
+  String get defaultCurrency;
   @override
-  double get totalExpense;
+  @JsonKey(name: 'month_summary')
+  MonthSummary get monthSummary;
   @override
-  List<CategorySpending> get spendingByCategory;
+  @JsonKey(name: 'category_breakdown')
+  List<CategoryBreakdown> get categoryBreakdown;
   @override
-  List<MonthlyTrend> get monthlyTrends;
+  @JsonKey(name: 'budget_alerts')
+  List<BudgetModel> get budgetAlerts;
   @override
-  List<BudgetAlert> get budgetAlerts;
+  @JsonKey(name: 'recent_transactions')
+  List<TransactionModel> get recentTransactions;
+  @override
+  @JsonKey(name: 'monthly_trend')
+  List<MonthlyTrend> get monthlyTrend;
+  @override
+  @JsonKey(name: 'wallet_balances')
+  List<WalletModel> get walletBalances;
 
   /// Create a copy of DashboardModel
   /// with the given fields replaced by the non-null parameter values.
@@ -322,80 +443,77 @@ abstract class _DashboardModel implements DashboardModel {
       throw _privateConstructorUsedError;
 }
 
-CategorySpending _$CategorySpendingFromJson(Map<String, dynamic> json) {
-  return _CategorySpending.fromJson(json);
+MonthSummary _$MonthSummaryFromJson(Map<String, dynamic> json) {
+  return _MonthSummary.fromJson(json);
 }
 
 /// @nodoc
-mixin _$CategorySpending {
-  String get categoryId => throw _privateConstructorUsedError;
-  String get categoryName => throw _privateConstructorUsedError;
-  double get amount => throw _privateConstructorUsedError;
-  String get color => throw _privateConstructorUsedError;
+mixin _$MonthSummary {
+  @JsonKey(fromJson: _stringToDouble)
+  double get income => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
+  double get expense => throw _privateConstructorUsedError;
+  @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+  double get savingsRate => throw _privateConstructorUsedError;
 
-  /// Serializes this CategorySpending to a JSON map.
+  /// Serializes this MonthSummary to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of CategorySpending
+  /// Create a copy of MonthSummary
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CategorySpendingCopyWith<CategorySpending> get copyWith =>
+  $MonthSummaryCopyWith<MonthSummary> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategorySpendingCopyWith<$Res> {
-  factory $CategorySpendingCopyWith(
-    CategorySpending value,
-    $Res Function(CategorySpending) then,
-  ) = _$CategorySpendingCopyWithImpl<$Res, CategorySpending>;
+abstract class $MonthSummaryCopyWith<$Res> {
+  factory $MonthSummaryCopyWith(
+    MonthSummary value,
+    $Res Function(MonthSummary) then,
+  ) = _$MonthSummaryCopyWithImpl<$Res, MonthSummary>;
   @useResult
   $Res call({
-    String categoryId,
-    String categoryName,
-    double amount,
-    String color,
+    @JsonKey(fromJson: _stringToDouble) double income,
+    @JsonKey(fromJson: _stringToDouble) double expense,
+    @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+    double savingsRate,
   });
 }
 
 /// @nodoc
-class _$CategorySpendingCopyWithImpl<$Res, $Val extends CategorySpending>
-    implements $CategorySpendingCopyWith<$Res> {
-  _$CategorySpendingCopyWithImpl(this._value, this._then);
+class _$MonthSummaryCopyWithImpl<$Res, $Val extends MonthSummary>
+    implements $MonthSummaryCopyWith<$Res> {
+  _$MonthSummaryCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of CategorySpending
+  /// Create a copy of MonthSummary
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryId = null,
-    Object? categoryName = null,
-    Object? amount = null,
-    Object? color = null,
+    Object? income = null,
+    Object? expense = null,
+    Object? savingsRate = null,
   }) {
     return _then(
       _value.copyWith(
-            categoryId: null == categoryId
-                ? _value.categoryId
-                : categoryId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            categoryName: null == categoryName
-                ? _value.categoryName
-                : categoryName // ignore: cast_nullable_to_non_nullable
-                      as String,
-            amount: null == amount
-                ? _value.amount
-                : amount // ignore: cast_nullable_to_non_nullable
+            income: null == income
+                ? _value.income
+                : income // ignore: cast_nullable_to_non_nullable
                       as double,
-            color: null == color
-                ? _value.color
-                : color // ignore: cast_nullable_to_non_nullable
-                      as String,
+            expense: null == expense
+                ? _value.expense
+                : expense // ignore: cast_nullable_to_non_nullable
+                      as double,
+            savingsRate: null == savingsRate
+                ? _value.savingsRate
+                : savingsRate // ignore: cast_nullable_to_non_nullable
+                      as double,
           )
           as $Val,
     );
@@ -403,59 +521,54 @@ class _$CategorySpendingCopyWithImpl<$Res, $Val extends CategorySpending>
 }
 
 /// @nodoc
-abstract class _$$CategorySpendingImplCopyWith<$Res>
-    implements $CategorySpendingCopyWith<$Res> {
-  factory _$$CategorySpendingImplCopyWith(
-    _$CategorySpendingImpl value,
-    $Res Function(_$CategorySpendingImpl) then,
-  ) = __$$CategorySpendingImplCopyWithImpl<$Res>;
+abstract class _$$MonthSummaryImplCopyWith<$Res>
+    implements $MonthSummaryCopyWith<$Res> {
+  factory _$$MonthSummaryImplCopyWith(
+    _$MonthSummaryImpl value,
+    $Res Function(_$MonthSummaryImpl) then,
+  ) = __$$MonthSummaryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({
-    String categoryId,
-    String categoryName,
-    double amount,
-    String color,
+    @JsonKey(fromJson: _stringToDouble) double income,
+    @JsonKey(fromJson: _stringToDouble) double expense,
+    @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+    double savingsRate,
   });
 }
 
 /// @nodoc
-class __$$CategorySpendingImplCopyWithImpl<$Res>
-    extends _$CategorySpendingCopyWithImpl<$Res, _$CategorySpendingImpl>
-    implements _$$CategorySpendingImplCopyWith<$Res> {
-  __$$CategorySpendingImplCopyWithImpl(
-    _$CategorySpendingImpl _value,
-    $Res Function(_$CategorySpendingImpl) _then,
+class __$$MonthSummaryImplCopyWithImpl<$Res>
+    extends _$MonthSummaryCopyWithImpl<$Res, _$MonthSummaryImpl>
+    implements _$$MonthSummaryImplCopyWith<$Res> {
+  __$$MonthSummaryImplCopyWithImpl(
+    _$MonthSummaryImpl _value,
+    $Res Function(_$MonthSummaryImpl) _then,
   ) : super(_value, _then);
 
-  /// Create a copy of CategorySpending
+  /// Create a copy of MonthSummary
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryId = null,
-    Object? categoryName = null,
-    Object? amount = null,
-    Object? color = null,
+    Object? income = null,
+    Object? expense = null,
+    Object? savingsRate = null,
   }) {
     return _then(
-      _$CategorySpendingImpl(
-        categoryId: null == categoryId
-            ? _value.categoryId
-            : categoryId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        categoryName: null == categoryName
-            ? _value.categoryName
-            : categoryName // ignore: cast_nullable_to_non_nullable
-                  as String,
-        amount: null == amount
-            ? _value.amount
-            : amount // ignore: cast_nullable_to_non_nullable
+      _$MonthSummaryImpl(
+        income: null == income
+            ? _value.income
+            : income // ignore: cast_nullable_to_non_nullable
                   as double,
-        color: null == color
-            ? _value.color
-            : color // ignore: cast_nullable_to_non_nullable
-                  as String,
+        expense: null == expense
+            ? _value.expense
+            : expense // ignore: cast_nullable_to_non_nullable
+                  as double,
+        savingsRate: null == savingsRate
+            ? _value.savingsRate
+            : savingsRate // ignore: cast_nullable_to_non_nullable
+                  as double,
       ),
     );
   }
@@ -463,91 +576,342 @@ class __$$CategorySpendingImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CategorySpendingImpl implements _CategorySpending {
-  const _$CategorySpendingImpl({
-    required this.categoryId,
-    required this.categoryName,
-    required this.amount,
-    required this.color,
+class _$MonthSummaryImpl implements _MonthSummary {
+  const _$MonthSummaryImpl({
+    @JsonKey(fromJson: _stringToDouble) required this.income,
+    @JsonKey(fromJson: _stringToDouble) required this.expense,
+    @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+    this.savingsRate = 0,
   });
 
-  factory _$CategorySpendingImpl.fromJson(Map<String, dynamic> json) =>
-      _$$CategorySpendingImplFromJson(json);
+  factory _$MonthSummaryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MonthSummaryImplFromJson(json);
 
   @override
-  final String categoryId;
+  @JsonKey(fromJson: _stringToDouble)
+  final double income;
   @override
-  final String categoryName;
+  @JsonKey(fromJson: _stringToDouble)
+  final double expense;
   @override
-  final double amount;
-  @override
-  final String color;
+  @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+  final double savingsRate;
 
   @override
   String toString() {
-    return 'CategorySpending(categoryId: $categoryId, categoryName: $categoryName, amount: $amount, color: $color)';
+    return 'MonthSummary(income: $income, expense: $expense, savingsRate: $savingsRate)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CategorySpendingImpl &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.categoryName, categoryName) ||
-                other.categoryName == categoryName) &&
+            other is _$MonthSummaryImpl &&
+            (identical(other.income, income) || other.income == income) &&
+            (identical(other.expense, expense) || other.expense == expense) &&
+            (identical(other.savingsRate, savingsRate) ||
+                other.savingsRate == savingsRate));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, income, expense, savingsRate);
+
+  /// Create a copy of MonthSummary
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$MonthSummaryImplCopyWith<_$MonthSummaryImpl> get copyWith =>
+      __$$MonthSummaryImplCopyWithImpl<_$MonthSummaryImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$MonthSummaryImplToJson(this);
+  }
+}
+
+abstract class _MonthSummary implements MonthSummary {
+  const factory _MonthSummary({
+    @JsonKey(fromJson: _stringToDouble) required final double income,
+    @JsonKey(fromJson: _stringToDouble) required final double expense,
+    @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+    final double savingsRate,
+  }) = _$MonthSummaryImpl;
+
+  factory _MonthSummary.fromJson(Map<String, dynamic> json) =
+      _$MonthSummaryImpl.fromJson;
+
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  double get income;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  double get expense;
+  @override
+  @JsonKey(name: 'savings_rate', fromJson: _stringToDouble)
+  double get savingsRate;
+
+  /// Create a copy of MonthSummary
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$MonthSummaryImplCopyWith<_$MonthSummaryImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+CategoryBreakdown _$CategoryBreakdownFromJson(Map<String, dynamic> json) {
+  return _CategoryBreakdown.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CategoryBreakdown {
+  String get name => throw _privateConstructorUsedError;
+  String get icon => throw _privateConstructorUsedError;
+  String get color => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
+  double get amount => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
+  double get percentage => throw _privateConstructorUsedError;
+
+  /// Serializes this CategoryBreakdown to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CategoryBreakdown
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CategoryBreakdownCopyWith<CategoryBreakdown> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CategoryBreakdownCopyWith<$Res> {
+  factory $CategoryBreakdownCopyWith(
+    CategoryBreakdown value,
+    $Res Function(CategoryBreakdown) then,
+  ) = _$CategoryBreakdownCopyWithImpl<$Res, CategoryBreakdown>;
+  @useResult
+  $Res call({
+    String name,
+    String icon,
+    String color,
+    @JsonKey(fromJson: _stringToDouble) double amount,
+    @JsonKey(fromJson: _stringToDouble) double percentage,
+  });
+}
+
+/// @nodoc
+class _$CategoryBreakdownCopyWithImpl<$Res, $Val extends CategoryBreakdown>
+    implements $CategoryBreakdownCopyWith<$Res> {
+  _$CategoryBreakdownCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CategoryBreakdown
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? icon = null,
+    Object? color = null,
+    Object? amount = null,
+    Object? percentage = null,
+  }) {
+    return _then(
+      _value.copyWith(
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            icon: null == icon
+                ? _value.icon
+                : icon // ignore: cast_nullable_to_non_nullable
+                      as String,
+            color: null == color
+                ? _value.color
+                : color // ignore: cast_nullable_to_non_nullable
+                      as String,
+            amount: null == amount
+                ? _value.amount
+                : amount // ignore: cast_nullable_to_non_nullable
+                      as double,
+            percentage: null == percentage
+                ? _value.percentage
+                : percentage // ignore: cast_nullable_to_non_nullable
+                      as double,
+          )
+          as $Val,
+    );
+  }
+}
+
+/// @nodoc
+abstract class _$$CategoryBreakdownImplCopyWith<$Res>
+    implements $CategoryBreakdownCopyWith<$Res> {
+  factory _$$CategoryBreakdownImplCopyWith(
+    _$CategoryBreakdownImpl value,
+    $Res Function(_$CategoryBreakdownImpl) then,
+  ) = __$$CategoryBreakdownImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({
+    String name,
+    String icon,
+    String color,
+    @JsonKey(fromJson: _stringToDouble) double amount,
+    @JsonKey(fromJson: _stringToDouble) double percentage,
+  });
+}
+
+/// @nodoc
+class __$$CategoryBreakdownImplCopyWithImpl<$Res>
+    extends _$CategoryBreakdownCopyWithImpl<$Res, _$CategoryBreakdownImpl>
+    implements _$$CategoryBreakdownImplCopyWith<$Res> {
+  __$$CategoryBreakdownImplCopyWithImpl(
+    _$CategoryBreakdownImpl _value,
+    $Res Function(_$CategoryBreakdownImpl) _then,
+  ) : super(_value, _then);
+
+  /// Create a copy of CategoryBreakdown
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? icon = null,
+    Object? color = null,
+    Object? amount = null,
+    Object? percentage = null,
+  }) {
+    return _then(
+      _$CategoryBreakdownImpl(
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        icon: null == icon
+            ? _value.icon
+            : icon // ignore: cast_nullable_to_non_nullable
+                  as String,
+        color: null == color
+            ? _value.color
+            : color // ignore: cast_nullable_to_non_nullable
+                  as String,
+        amount: null == amount
+            ? _value.amount
+            : amount // ignore: cast_nullable_to_non_nullable
+                  as double,
+        percentage: null == percentage
+            ? _value.percentage
+            : percentage // ignore: cast_nullable_to_non_nullable
+                  as double,
+      ),
+    );
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CategoryBreakdownImpl implements _CategoryBreakdown {
+  const _$CategoryBreakdownImpl({
+    required this.name,
+    this.icon = 'category',
+    required this.color,
+    @JsonKey(fromJson: _stringToDouble) required this.amount,
+    @JsonKey(fromJson: _stringToDouble) this.percentage = 0,
+  });
+
+  factory _$CategoryBreakdownImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CategoryBreakdownImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  @JsonKey()
+  final String icon;
+  @override
+  final String color;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  final double amount;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  final double percentage;
+
+  @override
+  String toString() {
+    return 'CategoryBreakdown(name: $name, icon: $icon, color: $color, amount: $amount, percentage: $percentage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CategoryBreakdownImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.color, color) || other.color == color) &&
             (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.percentage, percentage) ||
+                other.percentage == percentage));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, categoryId, categoryName, amount, color);
+      Object.hash(runtimeType, name, icon, color, amount, percentage);
 
-  /// Create a copy of CategorySpending
+  /// Create a copy of CategoryBreakdown
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CategorySpendingImplCopyWith<_$CategorySpendingImpl> get copyWith =>
-      __$$CategorySpendingImplCopyWithImpl<_$CategorySpendingImpl>(
+  _$$CategoryBreakdownImplCopyWith<_$CategoryBreakdownImpl> get copyWith =>
+      __$$CategoryBreakdownImplCopyWithImpl<_$CategoryBreakdownImpl>(
         this,
         _$identity,
       );
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$CategorySpendingImplToJson(this);
+    return _$$CategoryBreakdownImplToJson(this);
   }
 }
 
-abstract class _CategorySpending implements CategorySpending {
-  const factory _CategorySpending({
-    required final String categoryId,
-    required final String categoryName,
-    required final double amount,
+abstract class _CategoryBreakdown implements CategoryBreakdown {
+  const factory _CategoryBreakdown({
+    required final String name,
+    final String icon,
     required final String color,
-  }) = _$CategorySpendingImpl;
+    @JsonKey(fromJson: _stringToDouble) required final double amount,
+    @JsonKey(fromJson: _stringToDouble) final double percentage,
+  }) = _$CategoryBreakdownImpl;
 
-  factory _CategorySpending.fromJson(Map<String, dynamic> json) =
-      _$CategorySpendingImpl.fromJson;
+  factory _CategoryBreakdown.fromJson(Map<String, dynamic> json) =
+      _$CategoryBreakdownImpl.fromJson;
 
   @override
-  String get categoryId;
+  String get name;
   @override
-  String get categoryName;
-  @override
-  double get amount;
+  String get icon;
   @override
   String get color;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  double get amount;
+  @override
+  @JsonKey(fromJson: _stringToDouble)
+  double get percentage;
 
-  /// Create a copy of CategorySpending
+  /// Create a copy of CategoryBreakdown
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CategorySpendingImplCopyWith<_$CategorySpendingImpl> get copyWith =>
+  _$$CategoryBreakdownImplCopyWith<_$CategoryBreakdownImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -558,7 +922,9 @@ MonthlyTrend _$MonthlyTrendFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MonthlyTrend {
   String get month => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
   double get income => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
   double get expense => throw _privateConstructorUsedError;
 
   /// Serializes this MonthlyTrend to a JSON map.
@@ -578,7 +944,11 @@ abstract class $MonthlyTrendCopyWith<$Res> {
     $Res Function(MonthlyTrend) then,
   ) = _$MonthlyTrendCopyWithImpl<$Res, MonthlyTrend>;
   @useResult
-  $Res call({String month, double income, double expense});
+  $Res call({
+    String month,
+    @JsonKey(fromJson: _stringToDouble) double income,
+    @JsonKey(fromJson: _stringToDouble) double expense,
+  });
 }
 
 /// @nodoc
@@ -629,7 +999,11 @@ abstract class _$$MonthlyTrendImplCopyWith<$Res>
   ) = __$$MonthlyTrendImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String month, double income, double expense});
+  $Res call({
+    String month,
+    @JsonKey(fromJson: _stringToDouble) double income,
+    @JsonKey(fromJson: _stringToDouble) double expense,
+  });
 }
 
 /// @nodoc
@@ -674,8 +1048,8 @@ class __$$MonthlyTrendImplCopyWithImpl<$Res>
 class _$MonthlyTrendImpl implements _MonthlyTrend {
   const _$MonthlyTrendImpl({
     required this.month,
-    required this.income,
-    required this.expense,
+    @JsonKey(fromJson: _stringToDouble) required this.income,
+    @JsonKey(fromJson: _stringToDouble) required this.expense,
   });
 
   factory _$MonthlyTrendImpl.fromJson(Map<String, dynamic> json) =>
@@ -684,8 +1058,10 @@ class _$MonthlyTrendImpl implements _MonthlyTrend {
   @override
   final String month;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   final double income;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   final double expense;
 
   @override
@@ -724,8 +1100,8 @@ class _$MonthlyTrendImpl implements _MonthlyTrend {
 abstract class _MonthlyTrend implements MonthlyTrend {
   const factory _MonthlyTrend({
     required final String month,
-    required final double income,
-    required final double expense,
+    @JsonKey(fromJson: _stringToDouble) required final double income,
+    @JsonKey(fromJson: _stringToDouble) required final double expense,
   }) = _$MonthlyTrendImpl;
 
   factory _MonthlyTrend.fromJson(Map<String, dynamic> json) =
@@ -734,8 +1110,10 @@ abstract class _MonthlyTrend implements MonthlyTrend {
   @override
   String get month;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   double get income;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   double get expense;
 
   /// Create a copy of MonthlyTrend
@@ -743,260 +1121,5 @@ abstract class _MonthlyTrend implements MonthlyTrend {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MonthlyTrendImplCopyWith<_$MonthlyTrendImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-BudgetAlert _$BudgetAlertFromJson(Map<String, dynamic> json) {
-  return _BudgetAlert.fromJson(json);
-}
-
-/// @nodoc
-mixin _$BudgetAlert {
-  String get budgetId => throw _privateConstructorUsedError;
-  String get budgetName => throw _privateConstructorUsedError;
-  double get budgetAmount => throw _privateConstructorUsedError;
-  double get spentAmount => throw _privateConstructorUsedError;
-  double get percentage => throw _privateConstructorUsedError;
-
-  /// Serializes this BudgetAlert to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
-  /// Create a copy of BudgetAlert
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $BudgetAlertCopyWith<BudgetAlert> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BudgetAlertCopyWith<$Res> {
-  factory $BudgetAlertCopyWith(
-    BudgetAlert value,
-    $Res Function(BudgetAlert) then,
-  ) = _$BudgetAlertCopyWithImpl<$Res, BudgetAlert>;
-  @useResult
-  $Res call({
-    String budgetId,
-    String budgetName,
-    double budgetAmount,
-    double spentAmount,
-    double percentage,
-  });
-}
-
-/// @nodoc
-class _$BudgetAlertCopyWithImpl<$Res, $Val extends BudgetAlert>
-    implements $BudgetAlertCopyWith<$Res> {
-  _$BudgetAlertCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of BudgetAlert
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? budgetId = null,
-    Object? budgetName = null,
-    Object? budgetAmount = null,
-    Object? spentAmount = null,
-    Object? percentage = null,
-  }) {
-    return _then(
-      _value.copyWith(
-            budgetId: null == budgetId
-                ? _value.budgetId
-                : budgetId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            budgetName: null == budgetName
-                ? _value.budgetName
-                : budgetName // ignore: cast_nullable_to_non_nullable
-                      as String,
-            budgetAmount: null == budgetAmount
-                ? _value.budgetAmount
-                : budgetAmount // ignore: cast_nullable_to_non_nullable
-                      as double,
-            spentAmount: null == spentAmount
-                ? _value.spentAmount
-                : spentAmount // ignore: cast_nullable_to_non_nullable
-                      as double,
-            percentage: null == percentage
-                ? _value.percentage
-                : percentage // ignore: cast_nullable_to_non_nullable
-                      as double,
-          )
-          as $Val,
-    );
-  }
-}
-
-/// @nodoc
-abstract class _$$BudgetAlertImplCopyWith<$Res>
-    implements $BudgetAlertCopyWith<$Res> {
-  factory _$$BudgetAlertImplCopyWith(
-    _$BudgetAlertImpl value,
-    $Res Function(_$BudgetAlertImpl) then,
-  ) = __$$BudgetAlertImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({
-    String budgetId,
-    String budgetName,
-    double budgetAmount,
-    double spentAmount,
-    double percentage,
-  });
-}
-
-/// @nodoc
-class __$$BudgetAlertImplCopyWithImpl<$Res>
-    extends _$BudgetAlertCopyWithImpl<$Res, _$BudgetAlertImpl>
-    implements _$$BudgetAlertImplCopyWith<$Res> {
-  __$$BudgetAlertImplCopyWithImpl(
-    _$BudgetAlertImpl _value,
-    $Res Function(_$BudgetAlertImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of BudgetAlert
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? budgetId = null,
-    Object? budgetName = null,
-    Object? budgetAmount = null,
-    Object? spentAmount = null,
-    Object? percentage = null,
-  }) {
-    return _then(
-      _$BudgetAlertImpl(
-        budgetId: null == budgetId
-            ? _value.budgetId
-            : budgetId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        budgetName: null == budgetName
-            ? _value.budgetName
-            : budgetName // ignore: cast_nullable_to_non_nullable
-                  as String,
-        budgetAmount: null == budgetAmount
-            ? _value.budgetAmount
-            : budgetAmount // ignore: cast_nullable_to_non_nullable
-                  as double,
-        spentAmount: null == spentAmount
-            ? _value.spentAmount
-            : spentAmount // ignore: cast_nullable_to_non_nullable
-                  as double,
-        percentage: null == percentage
-            ? _value.percentage
-            : percentage // ignore: cast_nullable_to_non_nullable
-                  as double,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$BudgetAlertImpl implements _BudgetAlert {
-  const _$BudgetAlertImpl({
-    required this.budgetId,
-    required this.budgetName,
-    required this.budgetAmount,
-    required this.spentAmount,
-    required this.percentage,
-  });
-
-  factory _$BudgetAlertImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BudgetAlertImplFromJson(json);
-
-  @override
-  final String budgetId;
-  @override
-  final String budgetName;
-  @override
-  final double budgetAmount;
-  @override
-  final double spentAmount;
-  @override
-  final double percentage;
-
-  @override
-  String toString() {
-    return 'BudgetAlert(budgetId: $budgetId, budgetName: $budgetName, budgetAmount: $budgetAmount, spentAmount: $spentAmount, percentage: $percentage)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BudgetAlertImpl &&
-            (identical(other.budgetId, budgetId) ||
-                other.budgetId == budgetId) &&
-            (identical(other.budgetName, budgetName) ||
-                other.budgetName == budgetName) &&
-            (identical(other.budgetAmount, budgetAmount) ||
-                other.budgetAmount == budgetAmount) &&
-            (identical(other.spentAmount, spentAmount) ||
-                other.spentAmount == spentAmount) &&
-            (identical(other.percentage, percentage) ||
-                other.percentage == percentage));
-  }
-
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    budgetId,
-    budgetName,
-    budgetAmount,
-    spentAmount,
-    percentage,
-  );
-
-  /// Create a copy of BudgetAlert
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$BudgetAlertImplCopyWith<_$BudgetAlertImpl> get copyWith =>
-      __$$BudgetAlertImplCopyWithImpl<_$BudgetAlertImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BudgetAlertImplToJson(this);
-  }
-}
-
-abstract class _BudgetAlert implements BudgetAlert {
-  const factory _BudgetAlert({
-    required final String budgetId,
-    required final String budgetName,
-    required final double budgetAmount,
-    required final double spentAmount,
-    required final double percentage,
-  }) = _$BudgetAlertImpl;
-
-  factory _BudgetAlert.fromJson(Map<String, dynamic> json) =
-      _$BudgetAlertImpl.fromJson;
-
-  @override
-  String get budgetId;
-  @override
-  String get budgetName;
-  @override
-  double get budgetAmount;
-  @override
-  double get spentAmount;
-  @override
-  double get percentage;
-
-  /// Create a copy of BudgetAlert
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$BudgetAlertImplCopyWith<_$BudgetAlertImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

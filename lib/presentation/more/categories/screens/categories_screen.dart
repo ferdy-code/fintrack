@@ -432,6 +432,7 @@ class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'category_fab',
         onPressed: _showAddCategoryDialog,
         child: const Icon(Icons.add_rounded),
       ),
