@@ -23,19 +23,26 @@ RecurringTransactionModel _$RecurringTransactionModelFromJson(
 
 /// @nodoc
 mixin _$RecurringTransactionModel {
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  WalletModel get wallet => throw _privateConstructorUsedError;
+  CategoryModel? get category => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
+  @JsonKey(fromJson: _stringToDouble)
   double get amount => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
-  String get walletId => throw _privateConstructorUsedError;
-  String get frequency => throw _privateConstructorUsedError;
-  DateTime get startDate => throw _privateConstructorUsedError;
+  @JsonKey(readValue: _readNested)
+  String get currencyCode => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  DateTime? get endDate => throw _privateConstructorUsedError;
-  bool? get isActive => throw _privateConstructorUsedError;
-  DateTime? get lastExecuted => throw _privateConstructorUsedError;
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'merchant_name')
+  String? get merchantName => throw _privateConstructorUsedError;
+  String get frequency => throw _privateConstructorUsedError;
+  @JsonKey(name: 'next_due_date')
+  DateTime get nextDueDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_processed')
+  DateTime? get lastProcessed => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_active')
+  bool get isActive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'auto_create')
+  bool get autoCreate => throw _privateConstructorUsedError;
 
   /// Serializes this RecurringTransactionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,20 +62,23 @@ abstract class $RecurringTransactionModelCopyWith<$Res> {
   ) = _$RecurringTransactionModelCopyWithImpl<$Res, RecurringTransactionModel>;
   @useResult
   $Res call({
-    String id,
+    int id,
+    WalletModel wallet,
+    CategoryModel? category,
     String type,
-    double amount,
-    String categoryId,
-    String walletId,
-    String frequency,
-    DateTime startDate,
+    @JsonKey(fromJson: _stringToDouble) double amount,
+    @JsonKey(readValue: _readNested) String currencyCode,
     String? description,
-    DateTime? endDate,
-    bool? isActive,
-    DateTime? lastExecuted,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @JsonKey(name: 'merchant_name') String? merchantName,
+    String frequency,
+    @JsonKey(name: 'next_due_date') DateTime nextDueDate,
+    @JsonKey(name: 'last_processed') DateTime? lastProcessed,
+    @JsonKey(name: 'is_active') bool isActive,
+    @JsonKey(name: 'auto_create') bool autoCreate,
   });
+
+  $WalletModelCopyWith<$Res> get wallet;
+  $CategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -90,25 +100,33 @@ class _$RecurringTransactionModelCopyWithImpl<
   @override
   $Res call({
     Object? id = null,
+    Object? wallet = null,
+    Object? category = freezed,
     Object? type = null,
     Object? amount = null,
-    Object? categoryId = null,
-    Object? walletId = null,
-    Object? frequency = null,
-    Object? startDate = null,
+    Object? currencyCode = null,
     Object? description = freezed,
-    Object? endDate = freezed,
-    Object? isActive = freezed,
-    Object? lastExecuted = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? merchantName = freezed,
+    Object? frequency = null,
+    Object? nextDueDate = null,
+    Object? lastProcessed = freezed,
+    Object? isActive = null,
+    Object? autoCreate = null,
   }) {
     return _then(
       _value.copyWith(
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as int,
+            wallet: null == wallet
+                ? _value.wallet
+                : wallet // ignore: cast_nullable_to_non_nullable
+                      as WalletModel,
+            category: freezed == category
+                ? _value.category
+                : category // ignore: cast_nullable_to_non_nullable
+                      as CategoryModel?,
             type: null == type
                 ? _value.type
                 : type // ignore: cast_nullable_to_non_nullable
@@ -117,49 +135,65 @@ class _$RecurringTransactionModelCopyWithImpl<
                 ? _value.amount
                 : amount // ignore: cast_nullable_to_non_nullable
                       as double,
-            categoryId: null == categoryId
-                ? _value.categoryId
-                : categoryId // ignore: cast_nullable_to_non_nullable
+            currencyCode: null == currencyCode
+                ? _value.currencyCode
+                : currencyCode // ignore: cast_nullable_to_non_nullable
                       as String,
-            walletId: null == walletId
-                ? _value.walletId
-                : walletId // ignore: cast_nullable_to_non_nullable
-                      as String,
-            frequency: null == frequency
-                ? _value.frequency
-                : frequency // ignore: cast_nullable_to_non_nullable
-                      as String,
-            startDate: null == startDate
-                ? _value.startDate
-                : startDate // ignore: cast_nullable_to_non_nullable
-                      as DateTime,
             description: freezed == description
                 ? _value.description
                 : description // ignore: cast_nullable_to_non_nullable
                       as String?,
-            endDate: freezed == endDate
-                ? _value.endDate
-                : endDate // ignore: cast_nullable_to_non_nullable
+            merchantName: freezed == merchantName
+                ? _value.merchantName
+                : merchantName // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            frequency: null == frequency
+                ? _value.frequency
+                : frequency // ignore: cast_nullable_to_non_nullable
+                      as String,
+            nextDueDate: null == nextDueDate
+                ? _value.nextDueDate
+                : nextDueDate // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
+            lastProcessed: freezed == lastProcessed
+                ? _value.lastProcessed
+                : lastProcessed // ignore: cast_nullable_to_non_nullable
                       as DateTime?,
-            isActive: freezed == isActive
+            isActive: null == isActive
                 ? _value.isActive
                 : isActive // ignore: cast_nullable_to_non_nullable
-                      as bool?,
-            lastExecuted: freezed == lastExecuted
-                ? _value.lastExecuted
-                : lastExecuted // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            createdAt: freezed == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            updatedAt: freezed == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
+                      as bool,
+            autoCreate: null == autoCreate
+                ? _value.autoCreate
+                : autoCreate // ignore: cast_nullable_to_non_nullable
+                      as bool,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of RecurringTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $WalletModelCopyWith<$Res> get wallet {
+    return $WalletModelCopyWith<$Res>(_value.wallet, (value) {
+      return _then(_value.copyWith(wallet: value) as $Val);
+    });
+  }
+
+  /// Create a copy of RecurringTransactionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CategoryModelCopyWith<$Res>? get category {
+    if (_value.category == null) {
+      return null;
+    }
+
+    return $CategoryModelCopyWith<$Res>(_value.category!, (value) {
+      return _then(_value.copyWith(category: value) as $Val);
+    });
   }
 }
 
@@ -173,20 +207,25 @@ abstract class _$$RecurringTransactionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
+    int id,
+    WalletModel wallet,
+    CategoryModel? category,
     String type,
-    double amount,
-    String categoryId,
-    String walletId,
-    String frequency,
-    DateTime startDate,
+    @JsonKey(fromJson: _stringToDouble) double amount,
+    @JsonKey(readValue: _readNested) String currencyCode,
     String? description,
-    DateTime? endDate,
-    bool? isActive,
-    DateTime? lastExecuted,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    @JsonKey(name: 'merchant_name') String? merchantName,
+    String frequency,
+    @JsonKey(name: 'next_due_date') DateTime nextDueDate,
+    @JsonKey(name: 'last_processed') DateTime? lastProcessed,
+    @JsonKey(name: 'is_active') bool isActive,
+    @JsonKey(name: 'auto_create') bool autoCreate,
   });
+
+  @override
+  $WalletModelCopyWith<$Res> get wallet;
+  @override
+  $CategoryModelCopyWith<$Res>? get category;
 }
 
 /// @nodoc
@@ -208,25 +247,33 @@ class __$$RecurringTransactionModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? wallet = null,
+    Object? category = freezed,
     Object? type = null,
     Object? amount = null,
-    Object? categoryId = null,
-    Object? walletId = null,
-    Object? frequency = null,
-    Object? startDate = null,
+    Object? currencyCode = null,
     Object? description = freezed,
-    Object? endDate = freezed,
-    Object? isActive = freezed,
-    Object? lastExecuted = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
+    Object? merchantName = freezed,
+    Object? frequency = null,
+    Object? nextDueDate = null,
+    Object? lastProcessed = freezed,
+    Object? isActive = null,
+    Object? autoCreate = null,
   }) {
     return _then(
       _$RecurringTransactionModelImpl(
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as int,
+        wallet: null == wallet
+            ? _value.wallet
+            : wallet // ignore: cast_nullable_to_non_nullable
+                  as WalletModel,
+        category: freezed == category
+            ? _value.category
+            : category // ignore: cast_nullable_to_non_nullable
+                  as CategoryModel?,
         type: null == type
             ? _value.type
             : type // ignore: cast_nullable_to_non_nullable
@@ -235,46 +282,38 @@ class __$$RecurringTransactionModelImplCopyWithImpl<$Res>
             ? _value.amount
             : amount // ignore: cast_nullable_to_non_nullable
                   as double,
-        categoryId: null == categoryId
-            ? _value.categoryId
-            : categoryId // ignore: cast_nullable_to_non_nullable
+        currencyCode: null == currencyCode
+            ? _value.currencyCode
+            : currencyCode // ignore: cast_nullable_to_non_nullable
                   as String,
-        walletId: null == walletId
-            ? _value.walletId
-            : walletId // ignore: cast_nullable_to_non_nullable
-                  as String,
-        frequency: null == frequency
-            ? _value.frequency
-            : frequency // ignore: cast_nullable_to_non_nullable
-                  as String,
-        startDate: null == startDate
-            ? _value.startDate
-            : startDate // ignore: cast_nullable_to_non_nullable
-                  as DateTime,
         description: freezed == description
             ? _value.description
             : description // ignore: cast_nullable_to_non_nullable
                   as String?,
-        endDate: freezed == endDate
-            ? _value.endDate
-            : endDate // ignore: cast_nullable_to_non_nullable
+        merchantName: freezed == merchantName
+            ? _value.merchantName
+            : merchantName // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        frequency: null == frequency
+            ? _value.frequency
+            : frequency // ignore: cast_nullable_to_non_nullable
+                  as String,
+        nextDueDate: null == nextDueDate
+            ? _value.nextDueDate
+            : nextDueDate // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
+        lastProcessed: freezed == lastProcessed
+            ? _value.lastProcessed
+            : lastProcessed // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
-        isActive: freezed == isActive
+        isActive: null == isActive
             ? _value.isActive
             : isActive // ignore: cast_nullable_to_non_nullable
-                  as bool?,
-        lastExecuted: freezed == lastExecuted
-            ? _value.lastExecuted
-            : lastExecuted // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        createdAt: freezed == createdAt
-            ? _value.createdAt
-            : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        updatedAt: freezed == updatedAt
-            ? _value.updatedAt
-            : updatedAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
+                  as bool,
+        autoCreate: null == autoCreate
+            ? _value.autoCreate
+            : autoCreate // ignore: cast_nullable_to_non_nullable
+                  as bool,
       ),
     );
   }
@@ -285,53 +324,60 @@ class __$$RecurringTransactionModelImplCopyWithImpl<$Res>
 class _$RecurringTransactionModelImpl implements _RecurringTransactionModel {
   const _$RecurringTransactionModelImpl({
     required this.id,
+    required this.wallet,
+    this.category,
     required this.type,
-    required this.amount,
-    required this.categoryId,
-    required this.walletId,
-    required this.frequency,
-    required this.startDate,
+    @JsonKey(fromJson: _stringToDouble) required this.amount,
+    @JsonKey(readValue: _readNested) this.currencyCode = '',
     this.description,
-    this.endDate,
-    this.isActive,
-    this.lastExecuted,
-    this.createdAt,
-    this.updatedAt,
+    @JsonKey(name: 'merchant_name') this.merchantName,
+    required this.frequency,
+    @JsonKey(name: 'next_due_date') required this.nextDueDate,
+    @JsonKey(name: 'last_processed') this.lastProcessed,
+    @JsonKey(name: 'is_active') this.isActive = true,
+    @JsonKey(name: 'auto_create') this.autoCreate = false,
   });
 
   factory _$RecurringTransactionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$RecurringTransactionModelImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
+  @override
+  final WalletModel wallet;
+  @override
+  final CategoryModel? category;
   @override
   final String type;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   final double amount;
   @override
-  final String categoryId;
-  @override
-  final String walletId;
-  @override
-  final String frequency;
-  @override
-  final DateTime startDate;
+  @JsonKey(readValue: _readNested)
+  final String currencyCode;
   @override
   final String? description;
   @override
-  final DateTime? endDate;
+  @JsonKey(name: 'merchant_name')
+  final String? merchantName;
   @override
-  final bool? isActive;
+  final String frequency;
   @override
-  final DateTime? lastExecuted;
+  @JsonKey(name: 'next_due_date')
+  final DateTime nextDueDate;
   @override
-  final DateTime? createdAt;
+  @JsonKey(name: 'last_processed')
+  final DateTime? lastProcessed;
   @override
-  final DateTime? updatedAt;
+  @JsonKey(name: 'is_active')
+  final bool isActive;
+  @override
+  @JsonKey(name: 'auto_create')
+  final bool autoCreate;
 
   @override
   String toString() {
-    return 'RecurringTransactionModel(id: $id, type: $type, amount: $amount, categoryId: $categoryId, walletId: $walletId, frequency: $frequency, startDate: $startDate, description: $description, endDate: $endDate, isActive: $isActive, lastExecuted: $lastExecuted, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'RecurringTransactionModel(id: $id, wallet: $wallet, category: $category, type: $type, amount: $amount, currencyCode: $currencyCode, description: $description, merchantName: $merchantName, frequency: $frequency, nextDueDate: $nextDueDate, lastProcessed: $lastProcessed, isActive: $isActive, autoCreate: $autoCreate)';
   }
 
   @override
@@ -340,27 +386,27 @@ class _$RecurringTransactionModelImpl implements _RecurringTransactionModel {
         (other.runtimeType == runtimeType &&
             other is _$RecurringTransactionModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.wallet, wallet) || other.wallet == wallet) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.amount, amount) || other.amount == amount) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId) &&
-            (identical(other.walletId, walletId) ||
-                other.walletId == walletId) &&
-            (identical(other.frequency, frequency) ||
-                other.frequency == frequency) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
+            (identical(other.currencyCode, currencyCode) ||
+                other.currencyCode == currencyCode) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.merchantName, merchantName) ||
+                other.merchantName == merchantName) &&
+            (identical(other.frequency, frequency) ||
+                other.frequency == frequency) &&
+            (identical(other.nextDueDate, nextDueDate) ||
+                other.nextDueDate == nextDueDate) &&
+            (identical(other.lastProcessed, lastProcessed) ||
+                other.lastProcessed == lastProcessed) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
-            (identical(other.lastExecuted, lastExecuted) ||
-                other.lastExecuted == lastExecuted) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+            (identical(other.autoCreate, autoCreate) ||
+                other.autoCreate == autoCreate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -368,18 +414,18 @@ class _$RecurringTransactionModelImpl implements _RecurringTransactionModel {
   int get hashCode => Object.hash(
     runtimeType,
     id,
+    wallet,
+    category,
     type,
     amount,
-    categoryId,
-    walletId,
-    frequency,
-    startDate,
+    currencyCode,
     description,
-    endDate,
+    merchantName,
+    frequency,
+    nextDueDate,
+    lastProcessed,
     isActive,
-    lastExecuted,
-    createdAt,
-    updatedAt,
+    autoCreate,
   );
 
   /// Create a copy of RecurringTransactionModel
@@ -401,50 +447,57 @@ class _$RecurringTransactionModelImpl implements _RecurringTransactionModel {
 
 abstract class _RecurringTransactionModel implements RecurringTransactionModel {
   const factory _RecurringTransactionModel({
-    required final String id,
+    required final int id,
+    required final WalletModel wallet,
+    final CategoryModel? category,
     required final String type,
-    required final double amount,
-    required final String categoryId,
-    required final String walletId,
-    required final String frequency,
-    required final DateTime startDate,
+    @JsonKey(fromJson: _stringToDouble) required final double amount,
+    @JsonKey(readValue: _readNested) final String currencyCode,
     final String? description,
-    final DateTime? endDate,
-    final bool? isActive,
-    final DateTime? lastExecuted,
-    final DateTime? createdAt,
-    final DateTime? updatedAt,
+    @JsonKey(name: 'merchant_name') final String? merchantName,
+    required final String frequency,
+    @JsonKey(name: 'next_due_date') required final DateTime nextDueDate,
+    @JsonKey(name: 'last_processed') final DateTime? lastProcessed,
+    @JsonKey(name: 'is_active') final bool isActive,
+    @JsonKey(name: 'auto_create') final bool autoCreate,
   }) = _$RecurringTransactionModelImpl;
 
   factory _RecurringTransactionModel.fromJson(Map<String, dynamic> json) =
       _$RecurringTransactionModelImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
+  @override
+  WalletModel get wallet;
+  @override
+  CategoryModel? get category;
   @override
   String get type;
   @override
+  @JsonKey(fromJson: _stringToDouble)
   double get amount;
   @override
-  String get categoryId;
-  @override
-  String get walletId;
-  @override
-  String get frequency;
-  @override
-  DateTime get startDate;
+  @JsonKey(readValue: _readNested)
+  String get currencyCode;
   @override
   String? get description;
   @override
-  DateTime? get endDate;
+  @JsonKey(name: 'merchant_name')
+  String? get merchantName;
   @override
-  bool? get isActive;
+  String get frequency;
   @override
-  DateTime? get lastExecuted;
+  @JsonKey(name: 'next_due_date')
+  DateTime get nextDueDate;
   @override
-  DateTime? get createdAt;
+  @JsonKey(name: 'last_processed')
+  DateTime? get lastProcessed;
   @override
-  DateTime? get updatedAt;
+  @JsonKey(name: 'is_active')
+  bool get isActive;
+  @override
+  @JsonKey(name: 'auto_create')
+  bool get autoCreate;
 
   /// Create a copy of RecurringTransactionModel
   /// with the given fields replaced by the non-null parameter values.

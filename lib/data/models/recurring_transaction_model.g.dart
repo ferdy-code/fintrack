@@ -9,43 +9,39 @@ part of 'recurring_transaction_model.dart';
 _$RecurringTransactionModelImpl _$$RecurringTransactionModelImplFromJson(
   Map<String, dynamic> json,
 ) => _$RecurringTransactionModelImpl(
-  id: json['id'] as String,
+  id: (json['id'] as num).toInt(),
+  wallet: WalletModel.fromJson(json['wallet'] as Map<String, dynamic>),
+  category: json['category'] == null
+      ? null
+      : CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
   type: json['type'] as String,
-  amount: (json['amount'] as num).toDouble(),
-  categoryId: json['categoryId'] as String,
-  walletId: json['walletId'] as String,
-  frequency: json['frequency'] as String,
-  startDate: DateTime.parse(json['startDate'] as String),
+  amount: _stringToDouble(json['amount'] as Object),
+  currencyCode: _readNested(json, 'currencyCode') as String? ?? '',
   description: json['description'] as String?,
-  endDate: json['endDate'] == null
+  merchantName: json['merchant_name'] as String?,
+  frequency: json['frequency'] as String,
+  nextDueDate: DateTime.parse(json['next_due_date'] as String),
+  lastProcessed: json['last_processed'] == null
       ? null
-      : DateTime.parse(json['endDate'] as String),
-  isActive: json['isActive'] as bool?,
-  lastExecuted: json['lastExecuted'] == null
-      ? null
-      : DateTime.parse(json['lastExecuted'] as String),
-  createdAt: json['createdAt'] == null
-      ? null
-      : DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
-      ? null
-      : DateTime.parse(json['updatedAt'] as String),
+      : DateTime.parse(json['last_processed'] as String),
+  isActive: json['is_active'] as bool? ?? true,
+  autoCreate: json['auto_create'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$$RecurringTransactionModelImplToJson(
   _$RecurringTransactionModelImpl instance,
 ) => <String, dynamic>{
   'id': instance.id,
+  'wallet': instance.wallet,
+  'category': instance.category,
   'type': instance.type,
   'amount': instance.amount,
-  'categoryId': instance.categoryId,
-  'walletId': instance.walletId,
-  'frequency': instance.frequency,
-  'startDate': instance.startDate.toIso8601String(),
+  'currencyCode': instance.currencyCode,
   'description': instance.description,
-  'endDate': instance.endDate?.toIso8601String(),
-  'isActive': instance.isActive,
-  'lastExecuted': instance.lastExecuted?.toIso8601String(),
-  'createdAt': instance.createdAt?.toIso8601String(),
-  'updatedAt': instance.updatedAt?.toIso8601String(),
+  'merchant_name': instance.merchantName,
+  'frequency': instance.frequency,
+  'next_due_date': instance.nextDueDate.toIso8601String(),
+  'last_processed': instance.lastProcessed?.toIso8601String(),
+  'is_active': instance.isActive,
+  'auto_create': instance.autoCreate,
 };

@@ -39,6 +39,7 @@ class MainShell extends StatelessWidget {
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton(
+        heroTag: 'main_fab',
         onPressed: () {
           context.push('/transactions/add');
         },
