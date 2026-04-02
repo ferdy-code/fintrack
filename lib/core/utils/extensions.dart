@@ -8,7 +8,7 @@ extension StringExtension on String {
 }
 
 extension DoubleExtension on double {
-  String get toCurrency => '\$${toStringAsFixed(2)}';
+  String get toCurrency => 'Rp ${toStringAsFixed(0)}';
 }
 
 extension DateTimeExtension on DateTime {

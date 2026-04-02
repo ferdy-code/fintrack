@@ -27,6 +27,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(dashboardProvider, (prev, next) {
+      if (next.errorMessage != null &&
+          next.errorMessage != prev?.errorMessage) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
+      }
+    });
+
     final state = ref.watch(dashboardProvider);
     final walletState = ref.watch(walletListProvider);
     final defaultWallet = walletState.wallets.isNotEmpty

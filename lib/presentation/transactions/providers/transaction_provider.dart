@@ -111,6 +111,7 @@ class TransactionListNotifier extends StateNotifier<TransactionListState> {
       );
     } catch (e) {
       state = state.copyWith(errorMessage: e.toString());
+      rethrow;
     }
   }
 }

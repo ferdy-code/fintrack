@@ -21,10 +21,10 @@ ChatMessageModel _$ChatMessageModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ChatMessageModel {
-  String get id => throw _privateConstructorUsedError;
-  String get sessionId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get role => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this ChatMessageModel to a JSON map.
@@ -45,11 +45,10 @@ abstract class $ChatMessageModelCopyWith<$Res> {
   ) = _$ChatMessageModelCopyWithImpl<$Res, ChatMessageModel>;
   @useResult
   $Res call({
-    String id,
-    String sessionId,
+    int id,
     String role,
     String content,
-    DateTime? createdAt,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -69,7 +68,6 @@ class _$ChatMessageModelCopyWithImpl<$Res, $Val extends ChatMessageModel>
   @override
   $Res call({
     Object? id = null,
-    Object? sessionId = null,
     Object? role = null,
     Object? content = null,
     Object? createdAt = freezed,
@@ -79,11 +77,7 @@ class _$ChatMessageModelCopyWithImpl<$Res, $Val extends ChatMessageModel>
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            sessionId: null == sessionId
-                ? _value.sessionId
-                : sessionId // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as int,
             role: null == role
                 ? _value.role
                 : role // ignore: cast_nullable_to_non_nullable
@@ -112,11 +106,10 @@ abstract class _$$ChatMessageModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
-    String sessionId,
+    int id,
     String role,
     String content,
-    DateTime? createdAt,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -135,7 +128,6 @@ class __$$ChatMessageModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? sessionId = null,
     Object? role = null,
     Object? content = null,
     Object? createdAt = freezed,
@@ -145,11 +137,7 @@ class __$$ChatMessageModelImplCopyWithImpl<$Res>
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        sessionId: null == sessionId
-            ? _value.sessionId
-            : sessionId // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as int,
         role: null == role
             ? _value.role
             : role // ignore: cast_nullable_to_non_nullable
@@ -172,29 +160,27 @@ class __$$ChatMessageModelImplCopyWithImpl<$Res>
 class _$ChatMessageModelImpl implements _ChatMessageModel {
   const _$ChatMessageModelImpl({
     required this.id,
-    required this.sessionId,
     required this.role,
     required this.content,
-    this.createdAt,
+    @JsonKey(name: 'created_at') this.createdAt,
   });
 
   factory _$ChatMessageModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatMessageModelImplFromJson(json);
 
   @override
-  final String id;
-  @override
-  final String sessionId;
+  final int id;
   @override
   final String role;
   @override
   final String content;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 
   @override
   String toString() {
-    return 'ChatMessageModel(id: $id, sessionId: $sessionId, role: $role, content: $content, createdAt: $createdAt)';
+    return 'ChatMessageModel(id: $id, role: $role, content: $content, createdAt: $createdAt)';
   }
 
   @override
@@ -203,8 +189,6 @@ class _$ChatMessageModelImpl implements _ChatMessageModel {
         (other.runtimeType == runtimeType &&
             other is _$ChatMessageModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.sessionId, sessionId) ||
-                other.sessionId == sessionId) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.createdAt, createdAt) ||
@@ -213,8 +197,7 @@ class _$ChatMessageModelImpl implements _ChatMessageModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, sessionId, role, content, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, role, content, createdAt);
 
   /// Create a copy of ChatMessageModel
   /// with the given fields replaced by the non-null parameter values.
@@ -235,25 +218,23 @@ class _$ChatMessageModelImpl implements _ChatMessageModel {
 
 abstract class _ChatMessageModel implements ChatMessageModel {
   const factory _ChatMessageModel({
-    required final String id,
-    required final String sessionId,
+    required final int id,
     required final String role,
     required final String content,
-    final DateTime? createdAt,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$ChatMessageModelImpl;
 
   factory _ChatMessageModel.fromJson(Map<String, dynamic> json) =
       _$ChatMessageModelImpl.fromJson;
 
   @override
-  String get id;
-  @override
-  String get sessionId;
+  int get id;
   @override
   String get role;
   @override
   String get content;
   @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
 
   /// Create a copy of ChatMessageModel

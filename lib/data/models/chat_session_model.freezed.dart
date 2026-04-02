@@ -21,10 +21,10 @@ ChatSessionModel _$ChatSessionModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ChatSessionModel {
-  String get id => throw _privateConstructorUsedError;
-  String get title => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
 
   /// Serializes this ChatSessionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,10 +44,9 @@ abstract class $ChatSessionModelCopyWith<$Res> {
   ) = _$ChatSessionModelCopyWithImpl<$Res, ChatSessionModel>;
   @useResult
   $Res call({
-    String id,
-    String title,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    int id,
+    String? title,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -67,27 +66,22 @@ class _$ChatSessionModelCopyWithImpl<$Res, $Val extends ChatSessionModel>
   @override
   $Res call({
     Object? id = null,
-    Object? title = null,
+    Object? title = freezed,
     Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(
       _value.copyWith(
             id: null == id
                 ? _value.id
                 : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            title: null == title
+                      as int,
+            title: freezed == title
                 ? _value.title
                 : title // ignore: cast_nullable_to_non_nullable
-                      as String,
+                      as String?,
             createdAt: freezed == createdAt
                 ? _value.createdAt
                 : createdAt // ignore: cast_nullable_to_non_nullable
-                      as DateTime?,
-            updatedAt: freezed == updatedAt
-                ? _value.updatedAt
-                : updatedAt // ignore: cast_nullable_to_non_nullable
                       as DateTime?,
           )
           as $Val,
@@ -105,10 +99,9 @@ abstract class _$$ChatSessionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    String id,
-    String title,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    int id,
+    String? title,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   });
 }
 
@@ -127,27 +120,22 @@ class __$$ChatSessionModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? title = null,
+    Object? title = freezed,
     Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(
       _$ChatSessionModelImpl(
         id: null == id
             ? _value.id
             : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        title: null == title
+                  as int,
+        title: freezed == title
             ? _value.title
             : title // ignore: cast_nullable_to_non_nullable
-                  as String,
+                  as String?,
         createdAt: freezed == createdAt
             ? _value.createdAt
             : createdAt // ignore: cast_nullable_to_non_nullable
-                  as DateTime?,
-        updatedAt: freezed == updatedAt
-            ? _value.updatedAt
-            : updatedAt // ignore: cast_nullable_to_non_nullable
                   as DateTime?,
       ),
     );
@@ -159,26 +147,24 @@ class __$$ChatSessionModelImplCopyWithImpl<$Res>
 class _$ChatSessionModelImpl implements _ChatSessionModel {
   const _$ChatSessionModelImpl({
     required this.id,
-    required this.title,
-    this.createdAt,
-    this.updatedAt,
+    this.title,
+    @JsonKey(name: 'created_at') this.createdAt,
   });
 
   factory _$ChatSessionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatSessionModelImplFromJson(json);
 
   @override
-  final String id;
+  final int id;
   @override
-  final String title;
+  final String? title;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
-  @override
-  final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'ChatSessionModel(id: $id, title: $title, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ChatSessionModel(id: $id, title: $title, createdAt: $createdAt)';
   }
 
   @override
@@ -189,14 +175,12 @@ class _$ChatSessionModelImpl implements _ChatSessionModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, title, createdAt);
 
   /// Create a copy of ChatSessionModel
   /// with the given fields replaced by the non-null parameter values.
@@ -217,23 +201,21 @@ class _$ChatSessionModelImpl implements _ChatSessionModel {
 
 abstract class _ChatSessionModel implements ChatSessionModel {
   const factory _ChatSessionModel({
-    required final String id,
-    required final String title,
-    final DateTime? createdAt,
-    final DateTime? updatedAt,
+    required final int id,
+    final String? title,
+    @JsonKey(name: 'created_at') final DateTime? createdAt,
   }) = _$ChatSessionModelImpl;
 
   factory _ChatSessionModel.fromJson(Map<String, dynamic> json) =
       _$ChatSessionModelImpl.fromJson;
 
   @override
-  String get id;
+  int get id;
   @override
-  String get title;
+  String? get title;
   @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
-  @override
-  DateTime? get updatedAt;
 
   /// Create a copy of ChatSessionModel
   /// with the given fields replaced by the non-null parameter values.

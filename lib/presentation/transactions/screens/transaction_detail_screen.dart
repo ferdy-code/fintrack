@@ -381,10 +381,18 @@ class _TransactionDetailScreenState
       ),
     );
     if (confirm == true && mounted) {
-      ref
-          .read(transactionListProvider.notifier)
-          .deleteTransaction(int.parse(widget.id));
-      if (context.mounted) context.pop();
+      try {
+        await ref
+            .read(transactionListProvider.notifier)
+            .deleteTransaction(int.parse(widget.id));
+        if (context.mounted) context.pop();
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(e.toString())));
+        }
+      }
     }
   }
 

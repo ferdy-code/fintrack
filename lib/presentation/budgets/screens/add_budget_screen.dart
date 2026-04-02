@@ -125,7 +125,7 @@ class _AddBudgetScreenState extends ConsumerState<AddBudgetScreen> {
                 ),
                 decoration: const InputDecoration(
                   labelText: 'Budget Amount',
-                  prefixIcon: Icon(Icons.attach_money_rounded),
+                  prefixIcon: Icon(Icons.payments_rounded),
                 ),
                 validator: (v) {
                   if (v == null || v.isEmpty) return 'Amount is required';

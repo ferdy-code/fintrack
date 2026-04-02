@@ -63,12 +63,16 @@ class WalletListNotifier extends StateNotifier<WalletListState> {
         icon: icon,
         color: color,
       );
-      state = state.copyWith(wallets: [...state.wallets, wallet]);
+      state = state.copyWith(
+        status: WalletListStatus.loaded,
+        wallets: [...state.wallets, wallet],
+      );
     } catch (e) {
       state = state.copyWith(
-        status: WalletListStatus.error,
+        status: WalletListStatus.loaded,
         errorMessage: e.toString(),
       );
+      rethrow;
     }
   }
 

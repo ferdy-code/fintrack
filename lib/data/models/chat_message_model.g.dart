@@ -9,21 +9,19 @@ part of 'chat_message_model.dart';
 _$ChatMessageModelImpl _$$ChatMessageModelImplFromJson(
   Map<String, dynamic> json,
 ) => _$ChatMessageModelImpl(
-  id: json['id'] as String,
-  sessionId: json['sessionId'] as String,
+  id: (json['id'] as num).toInt(),
   role: json['role'] as String,
   content: json['content'] as String,
-  createdAt: json['createdAt'] == null
+  createdAt: json['created_at'] == null
       ? null
-      : DateTime.parse(json['createdAt'] as String),
+      : DateTime.parse(json['created_at'] as String),
 );
 
 Map<String, dynamic> _$$ChatMessageModelImplToJson(
   _$ChatMessageModelImpl instance,
 ) => <String, dynamic>{
   'id': instance.id,
-  'sessionId': instance.sessionId,
   'role': instance.role,
   'content': instance.content,
-  'createdAt': instance.createdAt?.toIso8601String(),
+  'created_at': instance.createdAt?.toIso8601String(),
 };

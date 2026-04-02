@@ -18,6 +18,7 @@ class _AddWalletScreenState extends ConsumerState<AddWalletScreen> {
   String _selectedCurrency = 'IDR';
   String _selectedIcon = 'account_balance_wallet';
   String _selectedColor = '#0D9488';
+  bool _isSaving = false;
 
   static const _walletTypes = ['Bank', 'E-Wallet', 'Cash', 'Credit Card'];
 
@@ -57,19 +58,30 @@ class _AddWalletScreenState extends ConsumerState<AddWalletScreen> {
     super.dispose();
   }
 
-  void _save() {
+  void _save() async {
     if (!_formKey.currentState!.validate()) return;
-    ref
-        .read(walletListProvider.notifier)
-        .addWallet(
-          name: _nameController.text.trim(),
-          type: _selectedType,
-          currencyCode: _selectedCurrency,
-          balance: double.tryParse(_balanceController.text) ?? 0,
-          icon: _selectedIcon,
-          color: _selectedColor,
-        );
-    context.pop();
+    setState(() => _isSaving = true);
+    try {
+      await ref
+          .read(walletListProvider.notifier)
+          .addWallet(
+            name: _nameController.text.trim(),
+            type: _selectedType,
+            currencyCode: _selectedCurrency,
+            balance: double.tryParse(_balanceController.text) ?? 0,
+            icon: _selectedIcon,
+            color: _selectedColor,
+          );
+      if (mounted) context.pop();
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 
   @override
@@ -77,7 +89,18 @@ class _AddWalletScreenState extends ConsumerState<AddWalletScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Wallet'),
-        actions: [TextButton(onPressed: _save, child: const Text('Save'))],
+        actions: [
+          TextButton(
+            onPressed: _isSaving ? null : _save,
+            child: _isSaving
+                ? const SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  )
+                : const Text('Save'),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

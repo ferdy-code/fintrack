@@ -51,6 +51,7 @@ class BudgetListNotifier extends StateNotifier<BudgetListState> {
       );
     } catch (e) {
       state = state.copyWith(errorMessage: e.toString());
+      rethrow;
     }
   }
 }

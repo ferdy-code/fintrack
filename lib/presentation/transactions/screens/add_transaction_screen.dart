@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/category_model.dart';
+import '../../more/ai_insights/providers/insights_provider.dart';
 import '../../more/wallets/providers/wallet_provider.dart';
 import '../providers/transaction_provider.dart';
 import '../widgets/category_selector.dart';
@@ -29,6 +30,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
   DateTime _selectedDate = DateTime.now();
   bool _isSaving = false;
 
+  bool _isAiCategorizing = false;
+  String? _aiSuggestion;
+  double? _aiConfidence;
+  bool _showAiSuggestion = false;
+  int? _aiSuggestedCategoryId;
+
   @override
   void dispose() {
     _amountController.dispose();
@@ -36,6 +43,71 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
     _merchantController.dispose();
     _notesController.dispose();
     super.dispose();
+  }
+
+  Future<void> _aiCategorize() async {
+    setState(() => _isAiCategorizing = true);
+    try {
+      final result = await ref
+          .read(aiRepositoryProvider)
+          .categorizeTransaction(
+            description: _descriptionController.text.trim().isNotEmpty
+                ? _descriptionController.text.trim()
+                : null,
+            merchantName: _merchantController.text.trim().isNotEmpty
+                ? _merchantController.text.trim()
+                : null,
+            amount: _amountController.text.isNotEmpty
+                ? double.tryParse(_amountController.text)
+                : null,
+            type: _type,
+          );
+      final categoryId = result['category_id'] as int?;
+      final categoryName = result['category_name'] as String?;
+      final confidence = (result['confidence'] as num?)?.toDouble() ?? 0;
+
+      if (categoryId == null || categoryName == null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('AI could not determine a category')),
+          );
+        }
+        return;
+      }
+
+      if (confidence >= 0.85) {
+        setState(() {
+          _selectedCategoryId = categoryId;
+          _selectedCategoryName = categoryName;
+          _showAiSuggestion = false;
+        });
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'AI: $categoryName (${(confidence * 100).toInt()}%)',
+              ),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } else {
+        setState(() {
+          _showAiSuggestion = true;
+          _aiSuggestion = categoryName;
+          _aiConfidence = confidence;
+          _aiSuggestedCategoryId = categoryId;
+        });
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('AI error: ${e.toString()}')));
+      }
+    } finally {
+      if (mounted) setState(() => _isAiCategorizing = false);
+    }
   }
 
   Future<void> _save() async {
@@ -185,15 +257,17 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   children: [
                     if (_selectedCategoryId == null)
                       IconButton(
-                        icon: const Icon(Icons.auto_fix_high_rounded),
+                        icon: _isAiCategorizing
+                            ? const SizedBox(
+                                width: 16,
+                                height: 16,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : const Icon(Icons.auto_fix_high_rounded),
                         tooltip: 'AI Categorize',
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('AI categorization coming soon'),
-                            ),
-                          );
-                        },
+                        onPressed: _isAiCategorizing ? null : _aiCategorize,
                       ),
                     const Icon(Icons.chevron_right_rounded),
                   ],
@@ -216,6 +290,44 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                   );
                 },
               ),
+              if (_showAiSuggestion && _selectedCategoryId == null)
+                Container(
+                  margin: const EdgeInsets.only(top: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.grey.shade400),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Suggested: $_aiSuggestion '
+                          '(${(_aiConfidence! * 100).toInt()}%)',
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _selectedCategoryId = _aiSuggestedCategoryId;
+                            _selectedCategoryName = _aiSuggestion;
+                            _showAiSuggestion = false;
+                          });
+                        },
+                        child: const Text('Accept'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() => _showAiSuggestion = false);
+                        },
+                        child: const Text('Dismiss'),
+                      ),
+                    ],
+                  ),
+                ),
               const SizedBox(height: 16),
               ListTile(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 4),

@@ -291,8 +291,18 @@ class _BudgetDetailScreenState extends ConsumerState<BudgetDetailScreen> {
       ),
     );
     if (confirm == true && mounted) {
-      ref.read(budgetListProvider.notifier).deleteBudget(int.parse(widget.id));
-      if (context.mounted) context.pop();
+      try {
+        await ref
+            .read(budgetListProvider.notifier)
+            .deleteBudget(int.parse(widget.id));
+        if (context.mounted) context.pop();
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(e.toString())));
+        }
+      }
     }
   }
 
