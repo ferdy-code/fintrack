@@ -27,8 +27,14 @@ class _SpendingPieChartState extends State<SpendingPieChart> {
       return const SizedBox.shrink();
     }
 
-    final topCategories = widget.categoryBreakdown.take(6).toList();
+    final topCategories = widget.categoryBreakdown
+        .where((c) => c.amount > 0)
+        .take(6)
+        .toList();
+    if (topCategories.isEmpty) return const SizedBox.shrink();
+
     final total = topCategories.fold<double>(0, (sum, c) => sum + c.amount);
+    if (total <= 0) return const SizedBox.shrink();
 
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

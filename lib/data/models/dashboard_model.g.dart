@@ -8,26 +8,38 @@ part of 'dashboard_model.dart';
 
 _$DashboardModelImpl _$$DashboardModelImplFromJson(Map<String, dynamic> json) =>
     _$DashboardModelImpl(
-      totalBalance: _stringToDouble(json['total_balance'] as Object),
+      totalBalance: _stringToDouble(json['total_balance']),
       defaultCurrency: json['default_currency'] as String? ?? 'IDR',
       monthSummary: MonthSummary.fromJson(
         json['month_summary'] as Map<String, dynamic>,
       ),
-      categoryBreakdown: (json['category_breakdown'] as List<dynamic>)
-          .map((e) => CategoryBreakdown.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      budgetAlerts: (json['budget_alerts'] as List<dynamic>)
-          .map((e) => BudgetModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      recentTransactions: (json['recent_transactions'] as List<dynamic>)
-          .map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      monthlyTrend: (json['monthly_trend'] as List<dynamic>)
-          .map((e) => MonthlyTrend.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      walletBalances: (json['wallet_balances'] as List<dynamic>)
-          .map((e) => WalletModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      categoryBreakdown:
+          (json['category_breakdown'] as List<dynamic>?)
+              ?.map(
+                (e) => CategoryBreakdown.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          const [],
+      budgetAlerts:
+          (json['budget_alerts'] as List<dynamic>?)
+              ?.map((e) => BudgetModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      recentTransactions:
+          (json['recent_transactions'] as List<dynamic>?)
+              ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      monthlyTrend:
+          (json['monthly_trend'] as List<dynamic>?)
+              ?.map((e) => MonthlyTrend.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      walletBalances:
+          (json['wallet_balances'] as List<dynamic>?)
+              ?.map((e) => WalletModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$$DashboardModelImplToJson(
@@ -45,11 +57,11 @@ Map<String, dynamic> _$$DashboardModelImplToJson(
 
 _$MonthSummaryImpl _$$MonthSummaryImplFromJson(Map<String, dynamic> json) =>
     _$MonthSummaryImpl(
-      income: _stringToDouble(json['income'] as Object),
-      expense: _stringToDouble(json['expense'] as Object),
+      income: _stringToDouble(json['income']),
+      expense: _stringToDouble(json['expense']),
       savingsRate: json['savings_rate'] == null
           ? 0
-          : _stringToDouble(json['savings_rate'] as Object),
+          : _stringToDouble(json['savings_rate']),
     );
 
 Map<String, dynamic> _$$MonthSummaryImplToJson(_$MonthSummaryImpl instance) =>
@@ -62,13 +74,13 @@ Map<String, dynamic> _$$MonthSummaryImplToJson(_$MonthSummaryImpl instance) =>
 _$CategoryBreakdownImpl _$$CategoryBreakdownImplFromJson(
   Map<String, dynamic> json,
 ) => _$CategoryBreakdownImpl(
-  name: json['name'] as String,
+  name: json['name'] as String? ?? '',
   icon: json['icon'] as String? ?? 'category',
-  color: json['color'] as String,
-  amount: _stringToDouble(json['amount'] as Object),
+  color: json['color'] as String? ?? '',
+  amount: _stringToDouble(json['amount']),
   percentage: json['percentage'] == null
       ? 0
-      : _stringToDouble(json['percentage'] as Object),
+      : _stringToDouble(json['percentage']),
 );
 
 Map<String, dynamic> _$$CategoryBreakdownImplToJson(
@@ -83,9 +95,9 @@ Map<String, dynamic> _$$CategoryBreakdownImplToJson(
 
 _$MonthlyTrendImpl _$$MonthlyTrendImplFromJson(Map<String, dynamic> json) =>
     _$MonthlyTrendImpl(
-      month: json['month'] as String,
-      income: _stringToDouble(json['income'] as Object),
-      expense: _stringToDouble(json['expense'] as Object),
+      month: json['month'] as String? ?? '',
+      income: _stringToDouble(json['income']),
+      expense: _stringToDouble(json['expense']),
     );
 
 Map<String, dynamic> _$$MonthlyTrendImplToJson(_$MonthlyTrendImpl instance) =>

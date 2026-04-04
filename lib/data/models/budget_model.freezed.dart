@@ -29,11 +29,11 @@ mixin _$BudgetModel {
   String get period => throw _privateConstructorUsedError;
   @JsonKey(name: 'alert_threshold')
   double get alertThreshold => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'spent', fromJson: _stringToDouble)
   double get spent => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'remaining', fromJson: _stringToDouble)
   double get remaining => throw _privateConstructorUsedError;
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
   double get percentageUsed => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_over_budget')
   bool get isOverBudget => throw _privateConstructorUsedError;
@@ -70,9 +70,10 @@ abstract class $BudgetModelCopyWith<$Res> {
     String currencyCode,
     String period,
     @JsonKey(name: 'alert_threshold') double alertThreshold,
-    @JsonKey(fromJson: _stringToDouble) double spent,
-    @JsonKey(fromJson: _stringToDouble) double remaining,
-    @JsonKey(fromJson: _stringToDouble) double percentageUsed,
+    @JsonKey(name: 'spent', fromJson: _stringToDouble) double spent,
+    @JsonKey(name: 'remaining', fromJson: _stringToDouble) double remaining,
+    @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
+    double percentageUsed,
     @JsonKey(name: 'is_over_budget') bool isOverBudget,
     @JsonKey(name: 'period_start') String? periodStart,
     @JsonKey(name: 'period_end') String? periodEnd,
@@ -203,9 +204,10 @@ abstract class _$$BudgetModelImplCopyWith<$Res>
     String currencyCode,
     String period,
     @JsonKey(name: 'alert_threshold') double alertThreshold,
-    @JsonKey(fromJson: _stringToDouble) double spent,
-    @JsonKey(fromJson: _stringToDouble) double remaining,
-    @JsonKey(fromJson: _stringToDouble) double percentageUsed,
+    @JsonKey(name: 'spent', fromJson: _stringToDouble) double spent,
+    @JsonKey(name: 'remaining', fromJson: _stringToDouble) double remaining,
+    @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
+    double percentageUsed,
     @JsonKey(name: 'is_over_budget') bool isOverBudget,
     @JsonKey(name: 'period_start') String? periodStart,
     @JsonKey(name: 'period_end') String? periodEnd,
@@ -319,9 +321,10 @@ class _$BudgetModelImpl implements _BudgetModel {
     this.currencyCode = '',
     this.period = 'monthly',
     @JsonKey(name: 'alert_threshold') this.alertThreshold = 0.8,
-    @JsonKey(fromJson: _stringToDouble) this.spent = 0,
-    @JsonKey(fromJson: _stringToDouble) this.remaining = 0,
-    @JsonKey(fromJson: _stringToDouble) this.percentageUsed = 0,
+    @JsonKey(name: 'spent', fromJson: _stringToDouble) this.spent = 0,
+    @JsonKey(name: 'remaining', fromJson: _stringToDouble) this.remaining = 0,
+    @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
+    this.percentageUsed = 0,
     @JsonKey(name: 'is_over_budget') this.isOverBudget = false,
     @JsonKey(name: 'period_start') this.periodStart,
     @JsonKey(name: 'period_end') this.periodEnd,
@@ -349,13 +352,13 @@ class _$BudgetModelImpl implements _BudgetModel {
   @JsonKey(name: 'alert_threshold')
   final double alertThreshold;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'spent', fromJson: _stringToDouble)
   final double spent;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'remaining', fromJson: _stringToDouble)
   final double remaining;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
   final double percentageUsed;
   @override
   @JsonKey(name: 'is_over_budget')
@@ -451,9 +454,11 @@ abstract class _BudgetModel implements BudgetModel {
     final String currencyCode,
     final String period,
     @JsonKey(name: 'alert_threshold') final double alertThreshold,
-    @JsonKey(fromJson: _stringToDouble) final double spent,
-    @JsonKey(fromJson: _stringToDouble) final double remaining,
-    @JsonKey(fromJson: _stringToDouble) final double percentageUsed,
+    @JsonKey(name: 'spent', fromJson: _stringToDouble) final double spent,
+    @JsonKey(name: 'remaining', fromJson: _stringToDouble)
+    final double remaining,
+    @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
+    final double percentageUsed,
     @JsonKey(name: 'is_over_budget') final bool isOverBudget,
     @JsonKey(name: 'period_start') final String? periodStart,
     @JsonKey(name: 'period_end') final String? periodEnd,
@@ -479,13 +484,13 @@ abstract class _BudgetModel implements BudgetModel {
   @JsonKey(name: 'alert_threshold')
   double get alertThreshold;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'spent', fromJson: _stringToDouble)
   double get spent;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'remaining', fromJson: _stringToDouble)
   double get remaining;
   @override
-  @JsonKey(fromJson: _stringToDouble)
+  @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
   double get percentageUsed;
   @override
   @JsonKey(name: 'is_over_budget')

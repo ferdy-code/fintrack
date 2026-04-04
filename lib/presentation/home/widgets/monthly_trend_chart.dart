@@ -43,10 +43,11 @@ class MonthlyTrendChart extends StatelessWidget {
                         if (index < 0 || index >= monthlyTrend.length) {
                           return const SizedBox.shrink();
                         }
+                        final label = monthlyTrend[index].month;
                         return Padding(
                           padding: const EdgeInsets.only(top: 8),
                           child: Text(
-                            monthlyTrend[index].month.substring(0, 3),
+                            label.length >= 3 ? label.substring(0, 3) : label,
                             style: TextStyle(
                               fontSize: 11,
                               color: Colors.grey.shade600,

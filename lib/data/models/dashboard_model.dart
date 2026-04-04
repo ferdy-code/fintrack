@@ -7,10 +7,11 @@ import 'budget_model.dart';
 part 'dashboard_model.freezed.dart';
 part 'dashboard_model.g.dart';
 
-double _stringToDouble(Object value) {
+double _stringToDouble(Object? value) {
+  if (value == null) return 0;
   if (value is double) return value;
   if (value is int) return value.toDouble();
-  return double.parse(value.toString());
+  return double.tryParse(value.toString()) ?? 0;
 }
 
 @freezed
@@ -21,12 +22,18 @@ class DashboardModel with _$DashboardModel {
     @JsonKey(name: 'default_currency') @Default('IDR') String defaultCurrency,
     @JsonKey(name: 'month_summary') required MonthSummary monthSummary,
     @JsonKey(name: 'category_breakdown')
-    required List<CategoryBreakdown> categoryBreakdown,
-    @JsonKey(name: 'budget_alerts') required List<BudgetModel> budgetAlerts,
+    @Default([])
+    List<CategoryBreakdown> categoryBreakdown,
+    @JsonKey(name: 'budget_alerts') @Default([]) List<BudgetModel> budgetAlerts,
     @JsonKey(name: 'recent_transactions')
-    required List<TransactionModel> recentTransactions,
-    @JsonKey(name: 'monthly_trend') required List<MonthlyTrend> monthlyTrend,
-    @JsonKey(name: 'wallet_balances') required List<WalletModel> walletBalances,
+    @Default([])
+    List<TransactionModel> recentTransactions,
+    @JsonKey(name: 'monthly_trend')
+    @Default([])
+    List<MonthlyTrend> monthlyTrend,
+    @JsonKey(name: 'wallet_balances')
+    @Default([])
+    List<WalletModel> walletBalances,
   }) = _DashboardModel;
 
   factory DashboardModel.fromJson(Map<String, dynamic> json) =>
@@ -50,9 +57,9 @@ class MonthSummary with _$MonthSummary {
 @freezed
 class CategoryBreakdown with _$CategoryBreakdown {
   const factory CategoryBreakdown({
-    required String name,
+    @Default('') String name,
     @Default('category') String icon,
-    required String color,
+    @Default('') String color,
     @JsonKey(fromJson: _stringToDouble) required double amount,
     @JsonKey(fromJson: _stringToDouble) @Default(0) double percentage,
   }) = _CategoryBreakdown;
@@ -64,7 +71,7 @@ class CategoryBreakdown with _$CategoryBreakdown {
 @freezed
 class MonthlyTrend with _$MonthlyTrend {
   const factory MonthlyTrend({
-    required String month,
+    @Default('') String month,
     @JsonKey(fromJson: _stringToDouble) required double income,
     @JsonKey(fromJson: _stringToDouble) required double expense,
   }) = _MonthlyTrend;

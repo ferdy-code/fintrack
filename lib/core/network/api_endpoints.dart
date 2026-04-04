@@ -16,8 +16,8 @@ class ApiEndpoints {
   static const String budgets = '/budgets';
   static String budgetDetail(String id) => '/budgets/$id';
 
-  static const String recurring = '/recurring';
-  static String recurringDetail(String id) => '/recurring/$id';
+  static const String recurring = '/recurring-transactions';
+  static String recurringDetail(String id) => '/recurring-transactions/$id';
 
   static const String currencies = '/currencies';
 

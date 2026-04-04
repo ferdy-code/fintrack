@@ -5,10 +5,11 @@ import 'category_model.dart';
 part 'budget_model.freezed.dart';
 part 'budget_model.g.dart';
 
-double _stringToDouble(Object value) {
+double _stringToDouble(Object? value) {
+  if (value == null) return 0;
   if (value is double) return value;
   if (value is int) return value.toDouble();
-  return double.parse(value.toString());
+  return double.tryParse(value.toString()) ?? 0;
 }
 
 @freezed
@@ -20,9 +21,13 @@ class BudgetModel with _$BudgetModel {
     @Default('') String currencyCode,
     @Default('monthly') String period,
     @JsonKey(name: 'alert_threshold') @Default(0.8) double alertThreshold,
-    @JsonKey(fromJson: _stringToDouble) @Default(0) double spent,
-    @JsonKey(fromJson: _stringToDouble) @Default(0) double remaining,
-    @JsonKey(fromJson: _stringToDouble) @Default(0) double percentageUsed,
+    @JsonKey(name: 'spent', fromJson: _stringToDouble) @Default(0) double spent,
+    @JsonKey(name: 'remaining', fromJson: _stringToDouble)
+    @Default(0)
+    double remaining,
+    @JsonKey(name: 'percentage_used', fromJson: _stringToDouble)
+    @Default(0)
+    double percentageUsed,
     @JsonKey(name: 'is_over_budget') @Default(false) bool isOverBudget,
     @JsonKey(name: 'period_start') String? periodStart,
     @JsonKey(name: 'period_end') String? periodEnd,

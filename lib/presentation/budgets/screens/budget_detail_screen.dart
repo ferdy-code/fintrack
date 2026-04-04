@@ -92,7 +92,8 @@ class _BudgetDetailScreenState extends ConsumerState<BudgetDetailScreen> {
     final defaultWallet = walletState.wallets.isNotEmpty
         ? walletState.wallets.first
         : null;
-    final percentage = budget.percentageUsed;
+    final rawPercentage = budget.percentageUsed;
+    final percentage = rawPercentage <= 1 ? rawPercentage * 100 : rawPercentage;
     final color = _getProgressColor(percentage);
     final catColor = _parseColor(budget.category.color);
     final catIcon = _getIcon(budget.category.icon);

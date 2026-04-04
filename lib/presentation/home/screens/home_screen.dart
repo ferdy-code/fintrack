@@ -63,49 +63,56 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           : RefreshIndicator(
               onRefresh: () =>
                   ref.read(dashboardProvider.notifier).fetchDashboard(),
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 12),
-                          if (state.data != null) ...[
-                            BalanceCard(
-                              balance: state.data!.totalBalance,
-                              monthSummary: state.data!.monthSummary,
-                              currencyCode: state.data!.defaultCurrency,
-                              currencySymbol: defaultWallet?.currencySymbol,
-                            ),
-                            const SizedBox(height: 32),
-                            BudgetAlertsSection(
-                              budgetAlerts: state.data!.budgetAlerts,
-                              currencyCode: state.data!.defaultCurrency,
-                              currencySymbol: defaultWallet?.currencySymbol,
-                            ),
-                            if (state.data!.budgetAlerts.isNotEmpty)
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 12),
+                            if (state.data != null) ...[
+                              BalanceCard(
+                                balance: state.data!.totalBalance,
+                                monthSummary: state.data!.monthSummary,
+                                currencyCode: state.data!.defaultCurrency,
+                                currencySymbol: defaultWallet?.currencySymbol,
+                              ),
                               const SizedBox(height: 32),
-                            SpendingPieChart(
-                              categoryBreakdown: state.data!.categoryBreakdown,
-                              currencyCode: state.data!.defaultCurrency,
-                              currencySymbol: defaultWallet?.currencySymbol,
-                            ),
-                            const SizedBox(height: 32),
-                            MonthlyTrendChart(
-                              monthlyTrend: state.data!.monthlyTrend,
-                            ),
-                            const SizedBox(height: 32),
-                            RecentTransactions(
-                              transactions: state.data!.recentTransactions,
-                            ),
-                            const SizedBox(height: 32),
+                              BudgetAlertsSection(
+                                budgetAlerts: state.data!.budgetAlerts,
+                                currencyCode: state.data!.defaultCurrency,
+                                currencySymbol: defaultWallet?.currencySymbol,
+                              ),
+                              if (state.data!.budgetAlerts.isNotEmpty)
+                                const SizedBox(height: 32),
+                              SpendingPieChart(
+                                categoryBreakdown:
+                                    state.data!.categoryBreakdown,
+                                currencyCode: state.data!.defaultCurrency,
+                                currencySymbol: defaultWallet?.currencySymbol,
+                              ),
+                              const SizedBox(height: 32),
+                              MonthlyTrendChart(
+                                monthlyTrend: state.data!.monthlyTrend,
+                              ),
+                              const SizedBox(height: 32),
+                              RecentTransactions(
+                                transactions: state.data!.recentTransactions,
+                              ),
+                              const SizedBox(height: 32),
+                            ],
                           ],
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
     );

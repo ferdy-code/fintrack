@@ -246,15 +246,15 @@ class _$DashboardModelImpl implements _DashboardModel {
     @JsonKey(name: 'default_currency') this.defaultCurrency = 'IDR',
     @JsonKey(name: 'month_summary') required this.monthSummary,
     @JsonKey(name: 'category_breakdown')
-    required final List<CategoryBreakdown> categoryBreakdown,
+    final List<CategoryBreakdown> categoryBreakdown = const [],
     @JsonKey(name: 'budget_alerts')
-    required final List<BudgetModel> budgetAlerts,
+    final List<BudgetModel> budgetAlerts = const [],
     @JsonKey(name: 'recent_transactions')
-    required final List<TransactionModel> recentTransactions,
+    final List<TransactionModel> recentTransactions = const [],
     @JsonKey(name: 'monthly_trend')
-    required final List<MonthlyTrend> monthlyTrend,
+    final List<MonthlyTrend> monthlyTrend = const [],
     @JsonKey(name: 'wallet_balances')
-    required final List<WalletModel> walletBalances,
+    final List<WalletModel> walletBalances = const [],
   }) : _categoryBreakdown = categoryBreakdown,
        _budgetAlerts = budgetAlerts,
        _recentTransactions = recentTransactions,
@@ -396,15 +396,12 @@ abstract class _DashboardModel implements DashboardModel {
     @JsonKey(name: 'default_currency') final String defaultCurrency,
     @JsonKey(name: 'month_summary') required final MonthSummary monthSummary,
     @JsonKey(name: 'category_breakdown')
-    required final List<CategoryBreakdown> categoryBreakdown,
-    @JsonKey(name: 'budget_alerts')
-    required final List<BudgetModel> budgetAlerts,
+    final List<CategoryBreakdown> categoryBreakdown,
+    @JsonKey(name: 'budget_alerts') final List<BudgetModel> budgetAlerts,
     @JsonKey(name: 'recent_transactions')
-    required final List<TransactionModel> recentTransactions,
-    @JsonKey(name: 'monthly_trend')
-    required final List<MonthlyTrend> monthlyTrend,
-    @JsonKey(name: 'wallet_balances')
-    required final List<WalletModel> walletBalances,
+    final List<TransactionModel> recentTransactions,
+    @JsonKey(name: 'monthly_trend') final List<MonthlyTrend> monthlyTrend,
+    @JsonKey(name: 'wallet_balances') final List<WalletModel> walletBalances,
   }) = _$DashboardModelImpl;
 
   factory _DashboardModel.fromJson(Map<String, dynamic> json) =
@@ -818,9 +815,9 @@ class __$$CategoryBreakdownImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$CategoryBreakdownImpl implements _CategoryBreakdown {
   const _$CategoryBreakdownImpl({
-    required this.name,
+    this.name = '',
     this.icon = 'category',
-    required this.color,
+    this.color = '',
     @JsonKey(fromJson: _stringToDouble) required this.amount,
     @JsonKey(fromJson: _stringToDouble) this.percentage = 0,
   });
@@ -829,11 +826,13 @@ class _$CategoryBreakdownImpl implements _CategoryBreakdown {
       _$$CategoryBreakdownImplFromJson(json);
 
   @override
+  @JsonKey()
   final String name;
   @override
   @JsonKey()
   final String icon;
   @override
+  @JsonKey()
   final String color;
   @override
   @JsonKey(fromJson: _stringToDouble)
@@ -884,9 +883,9 @@ class _$CategoryBreakdownImpl implements _CategoryBreakdown {
 
 abstract class _CategoryBreakdown implements CategoryBreakdown {
   const factory _CategoryBreakdown({
-    required final String name,
+    final String name,
     final String icon,
-    required final String color,
+    final String color,
     @JsonKey(fromJson: _stringToDouble) required final double amount,
     @JsonKey(fromJson: _stringToDouble) final double percentage,
   }) = _$CategoryBreakdownImpl;
@@ -1047,7 +1046,7 @@ class __$$MonthlyTrendImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MonthlyTrendImpl implements _MonthlyTrend {
   const _$MonthlyTrendImpl({
-    required this.month,
+    this.month = '',
     @JsonKey(fromJson: _stringToDouble) required this.income,
     @JsonKey(fromJson: _stringToDouble) required this.expense,
   });
@@ -1056,6 +1055,7 @@ class _$MonthlyTrendImpl implements _MonthlyTrend {
       _$$MonthlyTrendImplFromJson(json);
 
   @override
+  @JsonKey()
   final String month;
   @override
   @JsonKey(fromJson: _stringToDouble)
@@ -1099,7 +1099,7 @@ class _$MonthlyTrendImpl implements _MonthlyTrend {
 
 abstract class _MonthlyTrend implements MonthlyTrend {
   const factory _MonthlyTrend({
-    required final String month,
+    final String month,
     @JsonKey(fromJson: _stringToDouble) required final double income,
     @JsonKey(fromJson: _stringToDouble) required final double expense,
   }) = _$MonthlyTrendImpl;

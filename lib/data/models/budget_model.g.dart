@@ -11,17 +11,15 @@ _$BudgetModelImpl _$$BudgetModelImplFromJson(
 ) => _$BudgetModelImpl(
   id: (json['id'] as num).toInt(),
   category: CategoryModel.fromJson(json['category'] as Map<String, dynamic>),
-  amount: _stringToDouble(json['amount'] as Object),
+  amount: _stringToDouble(json['amount']),
   currencyCode: json['currencyCode'] as String? ?? '',
   period: json['period'] as String? ?? 'monthly',
   alertThreshold: (json['alert_threshold'] as num?)?.toDouble() ?? 0.8,
-  spent: json['spent'] == null ? 0 : _stringToDouble(json['spent'] as Object),
-  remaining: json['remaining'] == null
+  spent: json['spent'] == null ? 0 : _stringToDouble(json['spent']),
+  remaining: json['remaining'] == null ? 0 : _stringToDouble(json['remaining']),
+  percentageUsed: json['percentage_used'] == null
       ? 0
-      : _stringToDouble(json['remaining'] as Object),
-  percentageUsed: json['percentageUsed'] == null
-      ? 0
-      : _stringToDouble(json['percentageUsed'] as Object),
+      : _stringToDouble(json['percentage_used']),
   isOverBudget: json['is_over_budget'] as bool? ?? false,
   periodStart: json['period_start'] as String?,
   periodEnd: json['period_end'] as String?,
@@ -41,7 +39,7 @@ Map<String, dynamic> _$$BudgetModelImplToJson(_$BudgetModelImpl instance) =>
       'alert_threshold': instance.alertThreshold,
       'spent': instance.spent,
       'remaining': instance.remaining,
-      'percentageUsed': instance.percentageUsed,
+      'percentage_used': instance.percentageUsed,
       'is_over_budget': instance.isOverBudget,
       'period_start': instance.periodStart,
       'period_end': instance.periodEnd,
